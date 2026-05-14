@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0066b3">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Dòng tiền</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +24,12 @@
     --vtec: #0066b3;
     --vtec-dark: #004d87;
     --vtec-soft: #e8f1f9;
+    --abaso: #f59e0b;
+    --abaso-soft: #fef3c7;
+    --ebaso: #8b5cf6;
+    --ebaso-soft: #ede9fe;
+    --personal: #ec4899;
+    --personal-soft: #fce7f3;
     --danger: #d63838;
     --danger-soft: #fde8e8;
     --ok: #1e9956;
@@ -30,6 +38,12 @@
     --warn-soft: #fff3dc;
     --ai: #7c3aed;
     --ai-soft: #f3ebff;
+    --debt-vay: #ea580c;
+    --debt-vay-soft: #fed7aa;
+    --debt-cong: #0891b2;
+    --debt-cong-soft: #cffafe;
+    --debt-tra: #be185d;
+    --debt-tra-soft: #fce7f3;
     --safe-bottom: env(safe-area-inset-bottom, 0px);
     --safe-top: env(safe-area-inset-top, 0px);
   }
@@ -37,387 +51,294 @@
   body { padding-bottom: calc(80px + var(--safe-bottom)); }
   button { cursor: pointer; border: none; background: none; color: inherit; }
 
-  .topbar { background: var(--vtec); color: white; padding: calc(var(--safe-top) + 16px) 18px 18px; position: sticky; top: 0; z-index: 50; }
-  .topbar.ai { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); }
-  .topbar.settings { background: linear-gradient(135deg, #475569 0%, #334155 100%); }
-  .topbar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
-  .back-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; margin-left: -8px; }
-  .topbar-title { font-size: 18px; font-weight: 700; flex: 1; }
-  .topbar-sub { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 400; }
-  .topbar-action {
-    background: rgba(255,255,255,0.15); color: white;
-    padding: 8px 12px; font-size: 12px; font-weight: 600;
-    border-radius: 8px;
-  }
-  .topbar-action:active { background: rgba(255,255,255,0.25); }
+.topbar { background: var(–vtec); color: white; padding: calc(var(–safe-top) + 16px) 18px 18px; position: sticky; top: 0; z-index: 50; }
+.topbar.ai { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); }
+.topbar.settings { background: linear-gradient(135deg, #475569 0%, #334155 100%); }
+.topbar.debt { background: linear-gradient(135deg, #ea580c 0%, #9a3412 100%); }
+.topbar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.back-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; margin-left: -8px; }
+.topbar-title { font-size: 18px; font-weight: 700; flex: 1; }
+.topbar-action { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; }
+.topbar-sub { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 400; }
 
-  .home-greeting { padding: 16px 18px 8px; background: var(--vtec); color: white; display: flex; justify-content: space-between; align-items: flex-start; }
-  .home-greeting-text { font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 4px; }
-  .home-date { font-size: 11px; color: rgba(255,255,255,0.7); }
-  .settings-btn {
-    background: rgba(255,255,255,0.15);
-    color: white;
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-  }
-  .settings-btn:active { background: rgba(255,255,255,0.25); }
-  .balance-hero { background: var(--vtec); color: white; padding: 0 18px 24px; }
-  .balance-label { font-size: 12px; color: rgba(255,255,255,0.8); margin-bottom: 6px; font-weight: 500; }
-  .balance-value { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
-  .balance-sub { font-size: 12px; color: rgba(255,255,255,0.85); margin-top: 6px; }
+.home-greeting { padding: 16px 18px 8px; background: var(–vtec); color: white; display: flex; justify-content: space-between; align-items: flex-start; }
+.home-greeting-text { font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 4px; }
+.home-date { font-size: 11px; color: rgba(255,255,255,0.7); }
+.settings-btn { background: rgba(255,255,255,0.15); width: 36px; height: 36px; border-radius: 50%; color: white; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+.settings-btn:active { background: rgba(255,255,255,0.25); }
 
-  .ai-banner {
-    margin: -12px 14px 0;
-    position: relative; z-index: 2;
-    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
-    color: white; padding: 16px;
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
-    display: flex; align-items: center; gap: 14px;
-    cursor: pointer;
-  }
-  .ai-banner:active { transform: scale(0.99); }
-  .ai-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-  .ai-banner-text { flex: 1; }
-  .ai-banner-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-  .ai-banner-sub { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.4; }
-  .ai-banner-arrow { color: rgba(255,255,255,0.7); font-size: 18px; }
-  .ai-banner-status {
-    background: rgba(255,255,255,0.2);
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 700;
-    margin-left: 6px;
-  }
+.balance-hero { background: var(–vtec); color: white; padding: 0 18px 24px; }
+.balance-label { font-size: 12px; color: rgba(255,255,255,0.8); margin-bottom: 6px; font-weight: 500; }
+.balance-value { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
+.balance-sub { font-size: 12px; color: rgba(255,255,255,0.85); margin-top: 6px; }
 
-  .real-summary { margin: 16px 14px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .real-card { background: white; border: 1px solid var(--border-soft); border-radius: 12px; padding: 14px; }
-  .real-card-label { font-size: 11px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .real-card-value { font-size: 18px; font-weight: 700; color: var(--text); }
-  .real-card-value.income { color: var(--ok); }
-  .real-card-value.expense { color: var(--danger); }
-  .real-card-sub { font-size: 11px; color: var(--text-mute); margin-top: 4px; }
+.ai-banner { margin: -12px 14px 0; position: relative; z-index: 2; background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white; padding: 16px; border-radius: 14px; box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25); display: flex; align-items: center; gap: 14px; cursor: pointer; }
+.ai-banner:active { transform: scale(0.99); }
+.ai-banner.disabled { background: linear-gradient(135deg, #64748b 0%, #475569 100%); box-shadow: 0 4px 16px rgba(100,116,139,0.2); }
+.ai-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.ai-banner-text { flex: 1; }
+.ai-banner-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.ai-banner-sub { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.4; }
+.ai-banner-arrow { color: rgba(255,255,255,0.7); font-size: 18px; }
 
-  .section-group { padding: 16px 14px 0; }
-  .section-label { font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; padding: 0 4px; }
-  .accounts-card { background: white; border-radius: 14px; box-shadow: 0 2px 12px rgba(0, 102, 179, 0.06); overflow: hidden; border: 1px solid var(--border-soft); }
-  .account-item { display: flex; align-items: center; padding: 14px 16px; gap: 12px; cursor: pointer; transition: background 0.1s; border-bottom: 1px solid var(--border-soft); width: 100%; text-align: left; }
-  .account-item:last-child { border-bottom: none; }
-  .account-item:active { background: var(--bg-soft); }
-  .account-icon { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 17px; font-weight: 700; }
-  .account-icon.expense-plan { background: var(--danger-soft); color: var(--danger); }
-  .account-icon.expense-real { background: #fff0f0; color: var(--danger); border: 1.5px dashed var(--danger); }
-  .account-icon.income-plan { background: var(--ok-soft); color: var(--ok); }
-  .account-icon.income-real { background: #f0faf3; color: var(--ok); border: 1.5px dashed var(--ok); }
-  .account-icon.vtec { background: var(--vtec-soft); color: var(--vtec); }
-  .account-info { flex: 1; min-width: 0; }
-  .account-name { font-size: 14.5px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-  .account-meta { font-size: 11.5px; color: var(--text-mute); }
-  .account-amount { text-align: right; flex-shrink: 0; }
-  .account-amount-value { font-size: 15.5px; font-weight: 700; color: var(--text); }
-  .account-amount-value.expense { color: var(--danger); }
-  .account-amount-value.income { color: var(--ok); }
-  .account-arrow { color: var(--text-mute); font-size: 16px; margin-left: 4px; }
+.real-summary { margin: 16px 14px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.real-card { background: white; border: 1px solid var(–border-soft); border-radius: 12px; padding: 14px; }
+.real-card-label { font-size: 11px; font-weight: 600; color: var(–text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.real-card-value { font-size: 18px; font-weight: 700; color: var(–text); }
+.real-card-value.income { color: var(–ok); }
+.real-card-value.expense { color: var(–danger); }
+.real-card-sub { font-size: 11px; color: var(–text-mute); margin-top: 4px; }
 
-  .alert-card { background: var(--danger-soft); border: 1px solid rgba(214, 56, 56, 0.2); border-radius: 12px; padding: 14px; display: flex; gap: 12px; align-items: center; }
-  .alert-icon { width: 36px; height: 36px; background: var(--danger); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; flex-shrink: 0; }
-  .alert-body { flex: 1; font-size: 13px; line-height: 1.4; color: var(--text); }
-  .alert-body strong { color: var(--danger); font-weight: 700; }
+.section-group { padding: 16px 14px 0; }
+.section-label { font-size: 11px; font-weight: 700; color: var(–text-dim); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; padding: 0 4px; }
+.accounts-card { background: white; border-radius: 14px; box-shadow: 0 2px 12px rgba(0, 102, 179, 0.06); overflow: hidden; border: 1px solid var(–border-soft); }
+.account-item { display: flex; align-items: center; padding: 14px 16px; gap: 12px; cursor: pointer; transition: background 0.1s; border-bottom: 1px solid var(–border-soft); width: 100%; text-align: left; }
+.account-item:last-child { border-bottom: none; }
+.account-item:active { background: var(–bg-soft); }
+.account-icon { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 17px; font-weight: 700; }
+.account-icon.expense-plan { background: var(–danger-soft); color: var(–danger); }
+.account-icon.expense-real { background: #fff0f0; color: var(–danger); border: 1.5px dashed var(–danger); }
+.account-icon.income-plan { background: var(–ok-soft); color: var(–ok); }
+.account-icon.income-real { background: #f0faf3; color: var(–ok); border: 1.5px dashed var(–ok); }
+.account-icon.vtec { background: var(–vtec-soft); color: var(–vtec); }
+.account-icon.abaso { background: var(–abaso-soft); color: var(–abaso); }
+.account-icon.ebaso { background: var(–ebaso-soft); color: var(–ebaso); }
+.account-icon.personal { background: var(–personal-soft); color: var(–personal); }
+.account-icon.debt { background: var(–debt-vay-soft); color: var(–debt-vay); }
+.account-info { flex: 1; min-width: 0; }
+.account-name { font-size: 14.5px; font-weight: 600; color: var(–text); margin-bottom: 2px; }
+.account-meta { font-size: 11.5px; color: var(–text-mute); }
+.account-amount { text-align: right; flex-shrink: 0; }
+.account-amount-value { font-size: 15.5px; font-weight: 700; color: var(–text); }
+.account-amount-value.expense { color: var(–danger); }
+.account-amount-value.income { color: var(–ok); }
+.account-arrow { color: var(–text-mute); font-size: 16px; margin-left: 4px; }
 
-  .chart-section { margin: 16px 14px 0; background: white; border: 1px solid var(--border-soft); border-radius: 14px; padding: 16px; }
-  .chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
-  .chart-title { font-size: 15px; font-weight: 700; color: var(--text); }
-  .chart-legend { display: flex; gap: 12px; font-size: 11px; color: var(--text-dim); font-weight: 500; flex-wrap: wrap; }
-  .chart-legend span { display: flex; align-items: center; gap: 5px; }
-  .chart-legend i { width: 8px; height: 8px; display: inline-block; border-radius: 2px; }
-  .legend-income { background: var(--ok); }
-  .legend-expense { background: var(--danger); }
-  .legend-income-real { background: var(--ok); outline: 1.5px dashed var(--ok); }
-  .legend-expense-real { background: var(--danger); outline: 1.5px dashed var(--danger); }
-  .chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 0 16px; }
-  .chart-scroll::-webkit-scrollbar { display: none; }
-  .chart-bars { display: flex; gap: 14px; align-items: flex-end; height: 130px; padding: 4px 0; border-bottom: 1px solid var(--border-soft); margin-bottom: 8px; }
-  .chart-day { flex: 0 0 auto; width: 50px; display: flex; flex-direction: column; align-items: center; }
-  .chart-day-bars { display: flex; gap: 2px; align-items: flex-end; height: 100%; width: 100%; justify-content: center; }
-  .chart-bar { width: 10px; min-height: 2px; border-radius: 3px 3px 0 0; }
-  .chart-bar.income-plan { background: var(--ok); opacity: 0.4; }
-  .chart-bar.income-real { background: var(--ok); }
-  .chart-bar.expense-plan { background: var(--danger); opacity: 0.4; }
-  .chart-bar.expense-real { background: var(--danger); }
-  .chart-labels { display: flex; gap: 14px; }
-  .chart-label { flex: 0 0 auto; width: 50px; font-size: 10px; color: var(--text-mute); text-align: center; font-weight: 500; }
+.alert-card { background: var(–danger-soft); border: 1px solid rgba(214, 56, 56, 0.2); border-radius: 12px; padding: 14px; display: flex; gap: 12px; align-items: center; }
+.alert-icon { width: 36px; height: 36px; background: var(–danger); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+.alert-body { flex: 1; font-size: 13px; line-height: 1.4; color: var(–text); }
+.alert-body strong { color: var(–danger); font-weight: 700; }
 
-  .detail-header { padding: 8px 18px 20px; background: var(--vtec); color: white; }
-  .detail-header.danger { background: linear-gradient(135deg, #b32f2f 0%, #8a2222 100%); }
-  .detail-header.ok { background: linear-gradient(135deg, #178548 0%, #0d6233 100%); }
-  .detail-summary-label { font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
-  .detail-summary-value { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-  .detail-summary-meta { font-size: 12px; color: rgba(255,255,255,0.85); margin-top: 8px; }
-  .filter-bar { background: white; padding: 12px 14px; border-bottom: 1px solid var(--border-soft); }
-  .filter-bar-title { font-size: 13px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
-  .filter-bar-count { color: var(--text-mute); font-weight: 500; }
-  .txn-list { background: white; }
-  .txn-item { padding: 14px 16px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: flex-start; gap: 12px; }
-  .txn-item:last-child { border-bottom: none; }
-  .txn-date-col { width: 38px; text-align: center; flex-shrink: 0; padding-top: 2px; }
-  .txn-date-day { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1; }
-  .txn-date-month { font-size: 10px; color: var(--text-mute); text-transform: uppercase; margin-top: 3px; font-weight: 600; }
-  .txn-main { flex: 1; min-width: 0; }
-  .txn-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
-  .txn-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .tag { font-size: 10px; padding: 2px 7px; font-weight: 600; border-radius: 4px; }
-  .tag.cao { background: var(--danger-soft); color: var(--danger); }
-  .tag.tb { background: var(--warn-soft); color: var(--warn); }
-  .tag.thap { background: var(--ok-soft); color: var(--ok); }
-  .tag.vtec { background: var(--vtec); color: white; }
-  .tag.done { background: var(--ok); color: white; }
-  .txn-actions { display: flex; gap: 6px; margin-top: 4px; }
-  .act-btn { background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-dim); padding: 9px 12px; font-size: 12px; font-weight: 600; border-radius: 8px; flex: 1; }
-  .act-btn:active { transform: scale(0.97); }
-  .act-btn.done { background: var(--ok-soft); color: var(--ok); border-color: rgba(30,153,86,0.25); }
-  .act-btn.undo { background: var(--warn-soft); color: var(--warn); border-color: rgba(199,119,0,0.25); }
-  .act-btn.vtec-btn { background: var(--vtec-soft); color: var(--vtec); border-color: rgba(0,102,179,0.2); }
-  .act-btn.vtec-btn.on { background: var(--vtec); color: white; border-color: var(--vtec); }
-  .act-btn.del { flex: 0 0 44px; color: var(--text-mute); font-size: 16px; font-weight: 400; }
-  .act-btn.del:active { color: var(--danger); border-color: var(--danger); background: var(--danger-soft); }
-  .txn-amount { font-size: 16px; font-weight: 700; text-align: right; flex-shrink: 0; padding-top: 2px; white-space: nowrap; }
-  .txn-amount.expense { color: var(--danger); }
-  .txn-amount.income { color: var(--ok); }
-  .txn-amount-sub { font-size: 11px; color: var(--text-mute); font-weight: 500; margin-top: 3px; text-align: right; }
-  .txn-amount-sub.urgent { color: var(--danger); font-weight: 600; }
-  .txn-amount-sub.soon { color: var(--warn); font-weight: 600; }
-  .empty { padding: 60px 20px; text-align: center; color: var(--text-mute); font-size: 14px; }
-  .empty-icon { font-size: 48px; opacity: 0.2; margin-bottom: 12px; }
-  .empty-hint { font-size: 12px; margin-top: 6px; color: var(--text-mute); }
-  .help-note { font-size: 11px; color: var(--text-mute); padding: 8px 16px; background: var(--bg-soft); border-bottom: 1px solid var(--border-soft); line-height: 1.4; }
+.chart-section { margin: 16px 14px 0; background: white; border: 1px solid var(–border-soft); border-radius: 14px; padding: 16px; }
+.chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+.chart-title { font-size: 15px; font-weight: 700; color: var(–text); }
+.chart-legend { display: flex; gap: 12px; font-size: 11px; color: var(–text-dim); font-weight: 500; flex-wrap: wrap; }
+.chart-legend span { display: flex; align-items: center; gap: 5px; }
+.chart-legend i { width: 8px; height: 8px; display: inline-block; border-radius: 2px; }
+.legend-income { background: var(–ok); }
+.legend-expense { background: var(–danger); }
+.legend-income-real { background: var(–ok); outline: 1.5px dashed var(–ok); }
+.legend-expense-real { background: var(–danger); outline: 1.5px dashed var(–danger); }
+.chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -16px; padding: 0 16px; }
+.chart-scroll::-webkit-scrollbar { display: none; }
+.chart-bars { display: flex; gap: 14px; align-items: flex-end; height: 130px; padding: 4px 0; border-bottom: 1px solid var(–border-soft); margin-bottom: 8px; }
+.chart-day { flex: 0 0 auto; width: 50px; display: flex; flex-direction: column; align-items: center; }
+.chart-day-bars { display: flex; gap: 2px; align-items: flex-end; height: 100%; width: 100%; justify-content: center; }
+.chart-bar { width: 10px; min-height: 2px; border-radius: 3px 3px 0 0; }
+.chart-bar.income-plan { background: var(–ok); opacity: 0.4; }
+.chart-bar.income-real { background: var(–ok); }
+.chart-bar.expense-plan { background: var(–danger); opacity: 0.4; }
+.chart-bar.expense-real { background: var(–danger); }
+.chart-labels { display: flex; gap: 14px; }
+.chart-label { flex: 0 0 auto; width: 50px; font-size: 10px; color: var(–text-mute); text-align: center; font-weight: 500; }
 
-  /* AI VIEW */
-  .ai-content { padding: 16px 14px; background: var(--bg-soft); min-height: calc(100vh - 80px); }
-  .ai-section { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border-soft); }
-  .ai-section-title { font-size: 13px; font-weight: 700; color: var(--ai); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-  .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-  .quick-btn { background: white; border: 1px solid var(--border); padding: 14px 12px; text-align: left; border-radius: 12px; transition: all 0.15s; }
-  .quick-btn:active { transform: scale(0.98); background: var(--ai-soft); border-color: var(--ai); }
-  .quick-btn-icon { font-size: 20px; margin-bottom: 6px; }
-  .quick-btn-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-  .quick-btn-sub { font-size: 11px; color: var(--text-mute); line-height: 1.3; }
-  .chat-input-wrap { display: flex; gap: 8px; background: white; padding: 8px; border: 1px solid var(--border); border-radius: 14px; }
-  .chat-input { flex: 1; background: transparent; border: none; color: var(--text); padding: 10px 8px; font-size: 15px; outline: none; resize: none; font-family: inherit; min-height: 40px; max-height: 100px; }
-  .chat-input::placeholder { color: var(--text-mute); }
-  .chat-send { background: var(--ai); color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .chat-send:active { background: #5b21b6; }
-  .messages { display: flex; flex-direction: column; gap: 14px; }
-  .msg-user { align-self: flex-end; background: var(--vtec); color: white; padding: 10px 14px; border-radius: 16px 16px 4px 16px; max-width: 85%; font-size: 14px; line-height: 1.4; word-wrap: break-word; }
-  .msg-ai { align-self: flex-start; background: white; color: var(--text); padding: 12px 14px; border-radius: 16px 16px 16px 4px; max-width: 92%; font-size: 14px; line-height: 1.55; border: 1px solid var(--border-soft); box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-  .msg-ai strong { color: var(--ai); font-weight: 700; }
-  .msg-ai p { margin-bottom: 8px; }
-  .msg-ai p:last-child { margin-bottom: 0; }
-  .msg-ai ul, .msg-ai ol { margin: 6px 0 8px 18px; }
-  .msg-ai li { margin-bottom: 4px; }
-  .msg-ai h3 { font-size: 14px; margin: 10px 0 4px; color: var(--ai); }
-  .msg-ai code { background: var(--bg-soft); padding: 1px 6px; border-radius: 4px; font-family: 'SF Mono', Menlo, monospace; font-size: 12px; }
-  .msg-loading { align-self: flex-start; color: var(--text-mute); padding: 12px 14px; font-size: 13px; font-style: italic; display: flex; align-items: center; gap: 6px; }
-  .typing-dot { width: 6px; height: 6px; background: var(--ai); border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
-  .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-  .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-  @keyframes typing { 0%,80%,100% { transform: scale(0.6); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
-  .ai-alert-hero { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white; padding: 16px; border-radius: 14px; margin-bottom: 12px; }
-  .ai-alert-hero-title { font-size: 13px; font-weight: 600; opacity: 0.85; margin-bottom: 6px; }
-  .ai-alert-hero-content { font-size: 14px; line-height: 1.5; }
+.detail-header { padding: 8px 18px 20px; background: var(–vtec); color: white; }
+.detail-header.danger { background: linear-gradient(135deg, #b32f2f 0%, #8a2222 100%); }
+.detail-header.ok { background: linear-gradient(135deg, #178548 0%, #0d6233 100%); }
+.detail-header.debt-color { background: linear-gradient(135deg, #ea580c 0%, #9a3412 100%); }
+.detail-summary-label { font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+.detail-summary-value { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.detail-summary-meta { font-size: 12px; color: rgba(255,255,255,0.85); margin-top: 8px; }
 
-  /* AI not configured warning */
-  .ai-warning {
-    background: var(--warn-soft);
-    border: 1px solid rgba(199, 119, 0, 0.3);
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 12px;
-  }
-  .ai-warning-title { font-size: 14px; font-weight: 700; color: var(--warn); margin-bottom: 6px; }
-  .ai-warning-text { font-size: 13px; color: var(--text); line-height: 1.5; margin-bottom: 12px; }
-  .ai-warning-btn {
-    background: var(--warn); color: white;
-    padding: 10px 16px; font-size: 13px; font-weight: 600;
-    border-radius: 8px; width: 100%;
-  }
+.filter-bar { background: white; padding: 12px 14px; border-bottom: 1px solid var(–border-soft); }
+.filter-bar-title { font-size: 13px; font-weight: 600; color: var(–text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.filter-bar-count { color: var(–text-mute); font-weight: 500; }
 
-  /* SETTINGS VIEW */
-  .settings-content {
-    padding: 16px 14px;
-    background: var(--bg-soft);
-    min-height: calc(100vh - 80px);
-  }
-  .settings-section {
-    background: white;
-    border-radius: 14px;
-    margin-bottom: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border-soft);
-  }
-  .settings-section-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 0 4px 8px;
-  }
-  .settings-row {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .settings-row:last-child { border-bottom: none; }
-  .settings-row-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-  .settings-row-hint {
-    font-size: 11px;
-    color: var(--text-mute);
-    margin-bottom: 10px;
-    line-height: 1.4;
-  }
-  .provider-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 14px;
-  }
-  .provider-opt {
-    background: var(--bg-soft);
-    border: 1.5px solid var(--border);
-    color: var(--text-dim);
-    padding: 14px 8px;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 12px;
-    font-weight: 600;
-    transition: all 0.15s;
-  }
-  .provider-opt.active {
-    background: var(--ai-soft);
-    border-color: var(--ai);
-    color: var(--ai);
-  }
-  .provider-opt-icon { font-size: 20px; margin-bottom: 4px; display: block; }
-  .api-key-input {
-    width: 100%;
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 12px 14px;
-    font-size: 14px;
-    outline: none;
-    border-radius: 10px;
-    font-family: 'SF Mono', Menlo, monospace;
-    margin-bottom: 10px;
-  }
-  .api-key-input:focus { border-color: var(--ai); background: white; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
-  .settings-btn-row { display: flex; gap: 8px; }
-  .btn-test {
-    flex: 1;
-    background: var(--vtec-soft);
-    color: var(--vtec);
-    padding: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 10px;
-    border: 1px solid var(--vtec);
-  }
-  .btn-test:disabled { opacity: 0.5; }
-  .btn-save {
-    flex: 1;
-    background: var(--ai);
-    color: white;
-    padding: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 10px;
-  }
-  .btn-save:active { background: #5b21b6; }
-  .status-box {
-    margin-top: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    font-size: 12px;
-    line-height: 1.4;
-    display: none;
-  }
-  .status-box.show { display: block; }
-  .status-box.success { background: var(--ok-soft); color: var(--ok); border: 1px solid rgba(30,153,86,0.2); }
-  .status-box.error { background: var(--danger-soft); color: var(--danger); border: 1px solid rgba(214,56,56,0.2); }
-  .status-box.info { background: var(--vtec-soft); color: var(--vtec); border: 1px solid rgba(0,102,179,0.2); }
+.txn-list { background: white; }
+.txn-item { padding: 14px 16px; border-bottom: 1px solid var(–border-soft); display: flex; align-items: flex-start; gap: 12px; }
+.txn-item:last-child { border-bottom: none; }
+.txn-date-col { width: 38px; text-align: center; flex-shrink: 0; padding-top: 2px; }
+.txn-date-day { font-size: 17px; font-weight: 700; color: var(–text); line-height: 1; }
+.txn-date-month { font-size: 10px; color: var(–text-mute); text-transform: uppercase; margin-top: 3px; font-weight: 600; }
+.txn-date-time { font-size: 9px; color: var(–text-mute); margin-top: 3px; font-weight: 600; }
+.txn-main { flex: 1; min-width: 0; }
+.txn-name { font-size: 15px; font-weight: 600; color: var(–text); margin-bottom: 4px; line-height: 1.3; }
+.txn-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.tag { font-size: 10px; padding: 2px 7px; font-weight: 600; border-radius: 4px; }
+.tag.cao { background: var(–danger-soft); color: var(–danger); }
+.tag.tb { background: var(–warn-soft); color: var(–warn); }
+.tag.thap { background: var(–ok-soft); color: var(–ok); }
+.tag.vtec { background: var(–vtec); color: white; }
+.tag.abaso { background: var(–abaso); color: white; }
+.tag.ebaso { background: var(–ebaso); color: white; }
+.tag.personal { background: var(–personal); color: white; }
+.tag.debt-vay { background: var(–debt-vay); color: white; }
+.tag.debt-cong { background: var(–debt-cong); color: white; }
+.tag.debt-tra { background: var(–debt-tra); color: white; }
+.tag.done { background: var(–ok); color: white; }
+.txn-actions { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+.act-btn { background: var(–bg-soft); border: 1px solid var(–border); color: var(–text-dim); padding: 9px 12px; font-size: 12px; font-weight: 600; border-radius: 8px; flex: 1; min-width: 70px; }
+.act-btn:active { transform: scale(0.97); }
+.act-btn.done { background: var(–ok-soft); color: var(–ok); border-color: rgba(30,153,86,0.25); }
+.act-btn.done:active { background: var(–ok); color: white; }
+.act-btn.undo { background: var(–warn-soft); color: var(–warn); border-color: rgba(199,119,0,0.25); }
+.act-btn.edit { background: var(–vtec-soft); color: var(–vtec); border-color: rgba(0,102,179,0.2); }
+.act-btn.del { flex: 0 0 44px; color: var(–text-mute); font-size: 16px; font-weight: 400; min-width: 44px; }
+.act-btn.del:active { color: var(–danger); border-color: var(–danger); background: var(–danger-soft); }
+.txn-amount { font-size: 16px; font-weight: 700; text-align: right; flex-shrink: 0; padding-top: 2px; white-space: nowrap; }
+.txn-amount.expense { color: var(–danger); }
+.txn-amount.income { color: var(–ok); }
+.txn-amount-sub { font-size: 11px; color: var(–text-mute); font-weight: 500; margin-top: 3px; text-align: right; }
+.txn-amount-sub.urgent { color: var(–danger); font-weight: 600; }
+.txn-amount-sub.soon { color: var(–warn); font-weight: 600; }
 
-  .current-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 14px;
-    background: var(--ai-soft);
-    border: 1px solid rgba(124, 58, 237, 0.2);
-    border-radius: 10px;
-    margin-bottom: 12px;
-  }
-  .current-status-dot { width: 8px; height: 8px; background: var(--ok); border-radius: 50%; flex-shrink: 0; }
-  .current-status-dot.off { background: var(--text-mute); }
-  .current-status-text { font-size: 12px; color: var(--text); flex: 1; }
-  .current-status-text strong { font-weight: 700; }
+.empty { padding: 60px 20px; text-align: center; color: var(–text-mute); font-size: 14px; }
+.empty-icon { font-size: 48px; opacity: 0.2; margin-bottom: 12px; }
+.empty-hint { font-size: 12px; margin-top: 6px; color: var(–text-mute); }
+.help-note { font-size: 11px; color: var(–text-mute); padding: 8px 16px; background: var(–bg-soft); border-bottom: 1px solid var(–border-soft); line-height: 1.4; }
 
-  .info-block {
-    padding: 12px 14px;
-    background: var(--bg-soft);
-    border-radius: 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 1.5;
-  }
-  .info-block a { color: var(--ai); text-decoration: none; font-weight: 600; }
+/* AI */
+.ai-content { padding: 16px 14px; background: var(–bg-soft); min-height: calc(100vh - 80px); }
+.ai-section { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px; border: 1px solid var(–border-soft); }
+.ai-section-title { font-size: 13px; font-weight: 700; color: var(–ai); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.quick-btn { background: white; border: 1px solid var(–border); padding: 14px 12px; text-align: left; border-radius: 12px; transition: all 0.15s; }
+.quick-btn:active { transform: scale(0.98); background: var(–ai-soft); border-color: var(–ai); }
+.quick-btn-icon { font-size: 20px; margin-bottom: 6px; }
+.quick-btn-title { font-size: 13px; font-weight: 600; color: var(–text); margin-bottom: 2px; }
+.quick-btn-sub { font-size: 11px; color: var(–text-mute); line-height: 1.3; }
+.chat-input-wrap { display: flex; gap: 8px; background: white; padding: 8px; border: 1px solid var(–border); border-radius: 14px; }
+.chat-input { flex: 1; background: transparent; border: none; color: var(–text); padding: 10px 8px; font-size: 15px; outline: none; resize: none; font-family: inherit; min-height: 40px; max-height: 100px; }
+.chat-input::placeholder { color: var(–text-mute); }
+.chat-send { background: var(–ai); color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.chat-send:active { background: #5b21b6; }
+.messages { display: flex; flex-direction: column; gap: 14px; }
+.msg-user { align-self: flex-end; background: var(–vtec); color: white; padding: 10px 14px; border-radius: 16px 16px 4px 16px; max-width: 85%; font-size: 14px; line-height: 1.4; word-wrap: break-word; }
+.msg-ai { align-self: flex-start; background: white; color: var(–text); padding: 12px 14px; border-radius: 16px 16px 16px 4px; max-width: 92%; font-size: 14px; line-height: 1.55; border: 1px solid var(–border-soft); }
+.msg-ai strong { color: var(–ai); font-weight: 700; }
+.msg-ai p { margin-bottom: 8px; }
+.msg-ai p:last-child { margin-bottom: 0; }
+.msg-ai ul, .msg-ai ol { margin: 6px 0 8px 18px; }
+.msg-ai li { margin-bottom: 4px; }
+.msg-ai h3 { font-size: 14px; margin: 10px 0 4px; color: var(–ai); }
+.msg-ai code { background: var(–bg-soft); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+.msg-loading { align-self: flex-start; color: var(–text-mute); padding: 12px 14px; font-size: 13px; font-style: italic; display: flex; align-items: center; gap: 6px; }
+.typing-dot { width: 6px; height: 6px; background: var(–ai); border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes typing { 0%,80%,100% { transform: scale(0.6); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
+.ai-alert-hero { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); color: white; padding: 16px; border-radius: 14px; margin-bottom: 12px; }
+.ai-alert-hero-title { font-size: 13px; font-weight: 600; opacity: 0.85; margin-bottom: 6px; }
+.ai-alert-hero-content { font-size: 14px; line-height: 1.5; }
+.no-key-box { background: var(–warn-soft); border: 1px solid rgba(199, 119, 0, 0.3); border-radius: 14px; padding: 18px; text-align: center; margin-bottom: 12px; }
+.no-key-icon { font-size: 36px; margin-bottom: 8px; }
+.no-key-title { font-size: 16px; font-weight: 700; color: var(–text); margin-bottom: 6px; }
+.no-key-desc { font-size: 13px; color: var(–text-dim); line-height: 1.5; margin-bottom: 14px; }
+.no-key-btn { background: var(–ai); color: white; padding: 12px 24px; font-size: 14px; font-weight: 700; border-radius: 10px; }
 
-  .fab { position: fixed; right: 18px; bottom: calc(20px + var(--safe-bottom)); width: 56px; height: 56px; background: var(--vtec); color: white; border-radius: 50%; font-size: 30px; font-weight: 300; box-shadow: 0 6px 16px rgba(0,102,179,0.4); z-index: 60; display: flex; align-items: center; justify-content: center; line-height: 1; padding-bottom: 3px; }
-  .fab:active { transform: scale(0.93); background: var(--vtec-dark); }
+/* Settings */
+.settings-content { padding: 16px 14px; background: var(–bg-soft); min-height: calc(100vh - 80px); }
+.settings-section { background: white; border-radius: 14px; padding: 16px; margin-bottom: 12px; border: 1px solid var(–border-soft); }
+.settings-section-title { font-size: 13px; font-weight: 700; color: var(–text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.provider-tabs { display: flex; background: var(–bg-soft); padding: 4px; gap: 4px; border-radius: 10px; margin-bottom: 16px; }
+.provider-tab { flex: 1; color: var(–text-dim); padding: 11px; font-size: 13px; font-weight: 600; transition: all 0.15s; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.provider-tab.active.gemini { background: #4285f4; color: white; }
+.provider-tab.active.claude { background: var(–ai); color: white; }
+.provider-tab.active.none { background: var(–text-dim); color: white; }
+.key-field { margin-bottom: 14px; }
+.key-field-label { display: block; font-size: 12px; color: var(–text-dim); font-weight: 600; margin-bottom: 8px; }
+.key-input-wrap { position: relative; display: flex; gap: 6px; }
+.key-input { flex: 1; background: var(–bg-soft); border: 1px solid var(–border); color: var(–text); padding: 13px 14px; font-size: 14px; outline: none; border-radius: 10px; font-family: ‘SF Mono’, Menlo, monospace; -webkit-appearance: none; }
+.key-input:focus { border-color: var(–ai); background: white; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+.key-toggle { background: var(–bg-soft); border: 1px solid var(–border); color: var(–text-dim); padding: 0 14px; font-size: 14px; border-radius: 10px; font-weight: 600; }
+.key-help { font-size: 12px; color: var(–text-mute); margin-top: 8px; line-height: 1.5; }
+.key-help a { color: var(–ai); text-decoration: underline; }
+.key-status { display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 10px; font-size: 13px; margin-bottom: 12px; }
+.key-status.ok { background: var(–ok-soft); color: var(–ok); }
+.key-status.no { background: var(–warn-soft); color: var(–warn); }
+.save-btn { width: 100%; background: var(–ai); color: white; padding: 14px; font-size: 14px; font-weight: 700; border-radius: 10px; }
+.save-btn:active { opacity: 0.9; }
+.save-btn.gemini { background: #4285f4; }
+.clear-btn { width: 100%; background: var(–bg-soft); color: var(–danger); padding: 12px; font-size: 13px; font-weight: 600; border-radius: 10px; margin-top: 8px; }
+.test-btn { width: 100%; background: var(–bg-soft); color: var(–text); border: 1px solid var(–border); padding: 12px; font-size: 13px; font-weight: 600; border-radius: 10px; margin-top: 8px; }
+.info-box { background: var(–vtec-soft); border: 1px solid rgba(0,102,179,0.2); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; font-size: 12px; line-height: 1.5; color: var(–text); }
+.info-box strong { color: var(–vtec); }
 
-  .sheet-backdrop { position: fixed; inset: 0; background: rgba(10, 25, 41, 0.5); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-  .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
-  .sheet { position: fixed; left: 0; right: 0; bottom: 0; background: white; border-radius: 20px 20px 0 0; z-index: 101; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); max-height: 92vh; overflow-y: auto; padding-bottom: calc(20px + var(--safe-bottom)); }
-  .sheet.open { transform: translateY(0); }
-  .sheet-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 10px auto 0; }
-  .sheet-head { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
-  .sheet-title { font-size: 18px; font-weight: 700; color: var(--text); }
-  .sheet-close { background: var(--bg-soft); color: var(--text-dim); width: 32px; height: 32px; font-size: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-  .sheet-body { padding: 0 20px; }
-  .type-switch, .status-switch { display: flex; background: var(--bg-soft); padding: 4px; gap: 4px; margin-bottom: 16px; border-radius: 10px; }
-  .type-opt, .status-opt { flex: 1; color: var(--text-dim); padding: 12px; font-size: 14px; font-weight: 600; transition: all 0.15s; border-radius: 8px; }
-  .type-opt.active.expense { background: var(--danger); color: white; }
-  .type-opt.active.income { background: var(--ok); color: white; }
-  .status-opt.active { background: white; color: var(--vtec); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .field { margin-bottom: 16px; }
-  .field-label { display: block; font-size: 12px; color: var(--text-dim); font-weight: 600; margin-bottom: 8px; }
-  .field input { width: 100%; background: var(--bg-soft); border: 1px solid var(--border); color: var(--text); padding: 14px 14px; font-size: 16px; outline: none; -webkit-appearance: none; appearance: none; border-radius: 10px; }
-  .field input:focus { border-color: var(--vtec); background: white; box-shadow: 0 0 0 3px rgba(0,102,179,0.1); }
-  .field-amount input { font-size: 22px; font-weight: 700; text-align: right; color: var(--vtec-dark); }
-  .priority-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-  .pri-opt { background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-dim); padding: 13px 8px; font-size: 13px; font-weight: 600; border-radius: 10px; }
-  .pri-opt.active.cao { background: var(--danger); color: white; border-color: var(--danger); }
-  .pri-opt.active.tb { background: var(--warn); color: white; border-color: var(--warn); }
-  .pri-opt.active.thap { background: var(--ok); color: white; border-color: var(--ok); }
-  .submit-btn { width: 100%; background: var(--vtec); color: white; padding: 16px; font-size: 15px; font-weight: 700; margin-top: 12px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,102,179,0.3); }
-  .submit-btn:active { background: var(--vtec-dark); }
-  input[type="date"] { color-scheme: light; }
-  .view { display: none; }
-  .view.active { display: block; }
-  .txn-item.is-real { background: linear-gradient(90deg, #fafdfb, white); }
-  .txn-item.is-real.expense-real { background: linear-gradient(90deg, #fdfafa, white); }
+/* Source overview pills */
+.source-pills { display: flex; gap: 6px; padding: 0 14px; margin-top: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.source-pills::-webkit-scrollbar { display: none; }
+.source-pill { flex: 0 0 auto; background: white; border: 1px solid var(–border-soft); border-radius: 10px; padding: 10px 14px; min-width: 130px; }
+.source-pill-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.source-pill-value { font-size: 14px; font-weight: 700; }
+.source-pill.vtec .source-pill-label { color: var(–vtec); }
+.source-pill.abaso .source-pill-label { color: var(–abaso); }
+.source-pill.ebaso .source-pill-label { color: var(–ebaso); }
+.source-pill.personal .source-pill-label { color: var(–personal); }
+
+/* Filter chips */
+.filter-chips { display: flex; gap: 6px; padding: 12px 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; background: white; border-bottom: 1px solid var(–border-soft); }
+.filter-chips::-webkit-scrollbar { display: none; }
+.filter-chip { flex: 0 0 auto; padding: 7px 12px; background: var(–bg-soft); border: 1px solid var(–border); border-radius: 20px; font-size: 12px; font-weight: 600; color: var(–text-dim); white-space: nowrap; }
+.filter-chip.active { background: var(–vtec); color: white; border-color: var(–vtec); }
+.filter-chip.active.debt { background: var(–debt-vay); border-color: var(–debt-vay); }
+.filter-chip.active.source { background: var(–abaso); border-color: var(–abaso); }
+
+.fab { position: fixed; right: 18px; bottom: calc(20px + var(–safe-bottom)); width: 56px; height: 56px; background: var(–vtec); color: white; border-radius: 50%; font-size: 30px; font-weight: 300; box-shadow: 0 6px 16px rgba(0,102,179,0.4); z-index: 60; display: flex; align-items: center; justify-content: center; line-height: 1; padding-bottom: 3px; }
+.fab:active { transform: scale(0.93); background: var(–vtec-dark); }
+
+.sheet-backdrop { position: fixed; inset: 0; background: rgba(10, 25, 41, 0.5); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; background: white; border-radius: 20px 20px 0 0; z-index: 101; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); max-height: 92vh; overflow-y: auto; padding-bottom: calc(20px + var(–safe-bottom)); }
+.sheet.open { transform: translateY(0); }
+.sheet-handle { width: 40px; height: 4px; background: var(–border); border-radius: 2px; margin: 10px auto 0; }
+.sheet-head { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
+.sheet-title { font-size: 18px; font-weight: 700; color: var(–text); }
+.sheet-close { background: var(–bg-soft); color: var(–text-dim); width: 32px; height: 32px; font-size: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+.sheet-body { padding: 0 20px; }
+.type-switch, .status-switch { display: flex; background: var(–bg-soft); padding: 4px; gap: 4px; margin-bottom: 16px; border-radius: 10px; }
+.type-opt, .status-opt { flex: 1; color: var(–text-dim); padding: 12px; font-size: 14px; font-weight: 600; transition: all 0.15s; border-radius: 8px; }
+.type-opt.active.expense { background: var(–danger); color: white; }
+.type-opt.active.income { background: var(–ok); color: white; }
+.status-opt.active { background: white; color: var(–vtec); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.field { margin-bottom: 16px; }
+.field-label { display: block; font-size: 12px; color: var(–text-dim); font-weight: 600; margin-bottom: 8px; }
+.field-label.optional::after { content: ‘(tùy chọn)’; font-weight: 400; color: var(–text-mute); margin-left: 4px; }
+.field input, .field select { width: 100%; background: var(–bg-soft); border: 1px solid var(–border); color: var(–text); padding: 14px 14px; font-size: 16px; outline: none; -webkit-appearance: none; appearance: none; border-radius: 10px; }
+.field input:focus, .field select:focus { border-color: var(–vtec); background: white; box-shadow: 0 0 0 3px rgba(0,102,179,0.1); }
+.field-amount input { font-size: 22px; font-weight: 700; text-align: right; color: var(–vtec-dark); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.priority-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.pri-opt { background: var(–bg-soft); border: 1px solid var(–border); color: var(–text-dim); padding: 13px 8px; font-size: 13px; font-weight: 600; border-radius: 10px; }
+.pri-opt.active.cao { background: var(–danger); color: white; border-color: var(–danger); }
+.pri-opt.active.tb { background: var(–warn); color: white; border-color: var(–warn); }
+.pri-opt.active.thap { background: var(–ok); color: white; border-color: var(–ok); }
+.source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.source-opt { background: var(–bg-soft); border: 1px solid var(–border); color: var(–text-dim); padding: 13px 8px; font-size: 13px; font-weight: 600; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.source-opt.active.vtec { background: var(–vtec); color: white; border-color: var(–vtec); }
+.source-opt.active.abaso { background: var(–abaso); color: white; border-color: var(–abaso); }
+.source-opt.active.ebaso { background: var(–ebaso); color: white; border-color: var(–ebaso); }
+.source-opt.active.personal { background: var(–personal); color: white; border-color: var(–personal); }
+.debt-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; }
+.debt-opt { background: var(–bg-soft); border: 1px solid var(–border); color: var(–text-dim); padding: 11px 4px; font-size: 11px; font-weight: 600; border-radius: 10px; text-align: center; }
+.debt-opt.active.none { background: var(–text-dim); color: white; border-color: var(–text-dim); }
+.debt-opt.active.vay { background: var(–debt-vay); color: white; border-color: var(–debt-vay); }
+.debt-opt.active.cong { background: var(–debt-cong); color: white; border-color: var(–debt-cong); }
+.debt-opt.active.tra { background: var(–debt-tra); color: white; border-color: var(–debt-tra); }
+.submit-btn { width: 100%; background: var(–vtec); color: white; padding: 16px; font-size: 15px; font-weight: 700; margin-top: 12px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,102,179,0.3); }
+.submit-btn:active { background: var(–vtec-dark); }
+input[type=“date”], input[type=“time”] { color-scheme: light; }
+
+.view { display: none; }
+.view.active { display: block; }
+.txn-item.is-real { background: linear-gradient(90deg, #fafdfb, white); }
+.txn-item.is-real.expense-real { background: linear-gradient(90deg, #fdfafa, white); }
 </style>
+
 </head>
 <body>
 
-<!-- HOME -->
+<!-- ============ HOME ============ -->
+
 <div id="view-home" class="view active">
   <div class="home-greeting">
     <div>
@@ -432,10 +353,14 @@
     <div class="balance-sub" id="home-balance-sub">Đã thu − Đã chi</div>
   </div>
 
-  <div class="ai-banner" onclick="openView('ai')">
+  <!-- Source pills - horizontal scroll -->
+
+  <div class="source-pills" id="source-pills"></div>
+
+  <div class="ai-banner" id="ai-banner" onclick="onAIBannerClick()">
     <div class="ai-icon">✦</div>
     <div class="ai-banner-text">
-      <div class="ai-banner-title" id="ai-banner-title">Hỏi AI về dòng tiền<span class="ai-banner-status" id="ai-banner-status" style="display:none;"></span></div>
+      <div class="ai-banner-title" id="ai-banner-title">Hỏi AI về dòng tiền</div>
       <div class="ai-banner-sub" id="ai-banner-sub">Phân tích rủi ro · Đề xuất chiến lược</div>
     </div>
     <div class="ai-banner-arrow">›</div>
@@ -459,19 +384,13 @@
     <div class="accounts-card">
       <button class="account-item" onclick="openView('expense-plan')">
         <div class="account-icon expense-plan">−</div>
-        <div class="account-info">
-          <div class="account-name">Dự chi</div>
-          <div class="account-meta" id="home-expense-meta">0 khoản</div>
-        </div>
+        <div class="account-info"><div class="account-name">Dự chi</div><div class="account-meta" id="home-expense-meta">0 khoản</div></div>
         <div class="account-amount"><div class="account-amount-value expense" id="home-expense-val">0 ₫</div></div>
         <div class="account-arrow">›</div>
       </button>
       <button class="account-item" onclick="openView('income-plan')">
         <div class="account-icon income-plan">+</div>
-        <div class="account-info">
-          <div class="account-name">Dự thu</div>
-          <div class="account-meta" id="home-income-meta">0 khoản</div>
-        </div>
+        <div class="account-info"><div class="account-name">Dự thu</div><div class="account-meta" id="home-income-meta">0 khoản</div></div>
         <div class="account-amount"><div class="account-amount-value income" id="home-income-val">0 ₫</div></div>
         <div class="account-arrow">›</div>
       </button>
@@ -483,35 +402,26 @@
     <div class="accounts-card">
       <button class="account-item" onclick="openView('expense-real')">
         <div class="account-icon expense-real">−</div>
-        <div class="account-info">
-          <div class="account-name">Đã chi thực</div>
-          <div class="account-meta" id="home-real-out-meta">0 giao dịch</div>
-        </div>
+        <div class="account-info"><div class="account-name">Đã chi thực</div><div class="account-meta" id="home-real-out-meta">0 giao dịch</div></div>
         <div class="account-amount"><div class="account-amount-value expense" id="home-real-out-val">0 ₫</div></div>
         <div class="account-arrow">›</div>
       </button>
       <button class="account-item" onclick="openView('income-real')">
         <div class="account-icon income-real">+</div>
-        <div class="account-info">
-          <div class="account-name">Đã thu thực</div>
-          <div class="account-meta" id="home-real-in-meta">0 giao dịch</div>
-        </div>
+        <div class="account-info"><div class="account-name">Đã thu thực</div><div class="account-meta" id="home-real-in-meta">0 giao dịch</div></div>
         <div class="account-amount"><div class="account-amount-value income" id="home-real-in-val">0 ₫</div></div>
         <div class="account-arrow">›</div>
       </button>
     </div>
   </div>
 
-  <div class="section-group" id="home-vtec-section" style="display:none;">
-    <div class="section-label">Đối trừ qua VTEC</div>
+  <div class="section-group">
+    <div class="section-label">Quản lý nợ</div>
     <div class="accounts-card">
-      <button class="account-item" onclick="openView('vtec')">
-        <div class="account-icon vtec">⇄</div>
-        <div class="account-info">
-          <div class="account-name">Tổng đối trừ VTEC</div>
-          <div class="account-meta" id="home-vtec-meta">—</div>
-        </div>
-        <div class="account-amount"><div class="account-amount-value" id="home-vtec-val">0 ₫</div></div>
+      <button class="account-item" onclick="openView('debt')">
+        <div class="account-icon debt">⚠</div>
+        <div class="account-info"><div class="account-name">Tổng các khoản nợ</div><div class="account-meta" id="home-debt-meta">Nợ vay · Công nợ · Nợ phải trả</div></div>
+        <div class="account-amount"><div class="account-amount-value expense" id="home-debt-val">0 ₫</div></div>
         <div class="account-arrow">›</div>
       </button>
     </div>
@@ -537,65 +447,106 @@
         <span><i class="legend-expense-real"></i>Chi thực</span>
       </div>
     </div>
-    <div class="chart-scroll">
-      <div class="chart-bars" id="chart-bars"></div>
-      <div class="chart-labels" id="chart-labels"></div>
+    <div class="chart-scroll"><div class="chart-bars" id="chart-bars"></div><div class="chart-labels" id="chart-labels"></div></div>
+  </div>
+</div>
+
+<!-- Settings -->
+
+<div id="view-settings" class="view">
+  <div class="topbar settings"><div class="topbar-row"><button class="back-btn" onclick="openView('home')">‹</button><div class="topbar-title">⚙ Cài đặt<div class="topbar-sub">API key cho AI</div></div></div></div>
+  <div class="settings-content">
+    <div class="settings-section">
+      <div class="settings-section-title">Trạng thái AI</div>
+      <div id="key-status-display"></div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-section-title">Chọn nhà cung cấp AI</div>
+      <div class="info-box"><strong>API key được lưu cục bộ</strong> trong trình duyệt, không gửi đi đâu khác ngoài API của nhà cung cấp anh chọn.</div>
+      <div class="provider-tabs">
+        <button class="provider-tab none" data-provider="none">⊘ Tắt</button>
+        <button class="provider-tab gemini" data-provider="gemini">✦ Gemini</button>
+        <button class="provider-tab claude" data-provider="claude">✦ Claude</button>
+      </div>
+      <div id="gemini-config" style="display:none;">
+        <div class="key-field">
+          <label class="key-field-label">Google Gemini API Key</label>
+          <div class="key-input-wrap">
+            <input type="password" class="key-input" id="gemini-key" placeholder="AIza...">
+            <button class="key-toggle" onclick="toggleKeyVisibility('gemini-key', this)">👁</button>
+          </div>
+          <div class="key-help">Lấy key miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>.</div>
+        </div>
+        <button class="test-btn" id="gemini-test-btn" onclick="testKey('gemini')">🔍 Kiểm tra key</button>
+        <button class="save-btn gemini" onclick="saveKey('gemini')">💾 Lưu & Kích hoạt Gemini</button>
+      </div>
+      <div id="claude-config" style="display:none;">
+        <div class="key-field">
+          <label class="key-field-label">Anthropic Claude API Key</label>
+          <div class="key-input-wrap">
+            <input type="password" class="key-input" id="claude-key" placeholder="sk-ant-...">
+            <button class="key-toggle" onclick="toggleKeyVisibility('claude-key', this)">👁</button>
+          </div>
+          <div class="key-help">Lấy key tại <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a>.</div>
+        </div>
+        <button class="test-btn" id="claude-test-btn" onclick="testKey('claude')">🔍 Kiểm tra key</button>
+        <button class="save-btn" onclick="saveKey('claude')">💾 Lưu & Kích hoạt Claude</button>
+      </div>
+      <div id="none-config" style="display:none;"><div class="info-box">AI đang tắt. Chọn Gemini hoặc Claude để bật.</div></div>
+      <button class="clear-btn" onclick="clearAllKeys()">🗑 Xoá tất cả API key</button>
     </div>
   </div>
 </div>
 
 <!-- AI -->
+
 <div id="view-ai" class="view">
   <div class="topbar ai">
     <div class="topbar-row">
       <button class="back-btn" onclick="openView('home')">‹</button>
-      <div class="topbar-title">✦ Trợ lý AI<div class="topbar-sub" id="ai-topbar-sub">Tư vấn dòng tiền dựa trên dữ liệu thực</div></div>
-      <button class="topbar-action" onclick="openView('settings')">⚙</button>
+      <div class="topbar-title">✦ Trợ lý AI<div class="topbar-sub" id="ai-topbar-sub">Tư vấn dòng tiền</div></div>
+      <button class="topbar-action" onclick="openView('settings')" title="Cài đặt">⚙</button>
     </div>
   </div>
   <div class="ai-content" id="ai-content">
+    <div id="no-key-view" style="display:none;">
+      <div class="no-key-box">
+        <div class="no-key-icon">🔑</div>
+        <div class="no-key-title">Chưa cấu hình AI</div>
+        <div class="no-key-desc">Cần thêm API key (Gemini hoặc Claude) để dùng AI tư vấn.</div>
+        <button class="no-key-btn" onclick="openView('settings')">⚙ Mở Cài đặt</button>
+      </div>
+    </div>
     <div id="ai-welcome">
-      <div id="ai-warning-box"></div>
       <div class="ai-alert-hero" id="ai-snapshot">
         <div class="ai-alert-hero-title">📊 Tình hình hiện tại</div>
         <div class="ai-alert-hero-content" id="ai-snapshot-text">Đang phân tích...</div>
       </div>
-
       <div class="ai-section">
         <div class="ai-section-title">⚡ Yêu cầu nhanh</div>
         <div class="quick-actions">
-          <button class="quick-btn" onclick="askAI('Phân tích tổng quan dòng tiền của tao. Chỉ ra các rủi ro lớn nhất và đề xuất 3 hành động ưu tiên nhất tao nên làm trong 7 ngày tới.')">
-            <div class="quick-btn-icon">🎯</div>
-            <div class="quick-btn-title">Phân tích toàn diện</div>
-            <div class="quick-btn-sub">Tổng quan + rủi ro + đề xuất</div>
+          <button class="quick-btn" onclick="askAI('Phân tích tổng quan dòng tiền của tôi theo từng nguồn tiền (VTEC, ABASO, EBASO, Cá nhân). Chỉ ra các rủi ro lớn nhất và đề xuất 3 hành động ưu tiên trong 7 ngày tới.')">
+            <div class="quick-btn-icon">🎯</div><div class="quick-btn-title">Phân tích toàn diện</div><div class="quick-btn-sub">Theo từng nguồn tiền + rủi ro</div>
           </button>
-          <button class="quick-btn" onclick="askAI('Lập lịch chi tiêu theo ngày từ hôm nay đến hết tuần. Khoản nào ưu tiên chi trước, khoản nào có thể trì hoãn? Giải thích lý do.')">
-            <div class="quick-btn-icon">📅</div>
-            <div class="quick-btn-title">Lịch chi theo ngày</div>
-            <div class="quick-btn-sub">Sắp xếp thứ tự xử lý</div>
+          <button class="quick-btn" onclick="askAI('Lập lịch chi tiêu theo ngày VÀ GIỜ từ hôm nay đến hết tuần. Khoản nào ưu tiên chi trước, khoản nào trì hoãn? Tính theo từng nguồn tiền.')">
+            <div class="quick-btn-icon">📅</div><div class="quick-btn-title">Lịch chi theo giờ</div><div class="quick-btn-sub">Sắp xếp ưu tiên + nguồn tiền</div>
           </button>
-          <button class="quick-btn" onclick="askAI('Phân tích rủi ro dòng tiền: chuyện gì xảy ra nếu 1-2 khoản thu lớn nhất bị trễ? Tao nên có kế hoạch dự phòng gì?')">
-            <div class="quick-btn-icon">⚠️</div>
-            <div class="quick-btn-title">Đánh giá rủi ro</div>
-            <div class="quick-btn-sub">Stress test + kế hoạch B</div>
+          <button class="quick-btn" onclick="askAI('Phân tích chi tiết các khoản NỢ của tôi: nợ vay, công nợ phải thu, nợ phải trả. Khoản nào nguy hiểm nhất? Chiến lược xử lý ra sao?')">
+            <div class="quick-btn-icon">⚠️</div><div class="quick-btn-title">Phân tích nợ</div><div class="quick-btn-sub">Nợ vay · Công nợ · Phải trả</div>
           </button>
-          <button class="quick-btn" onclick="askAI('Phân tích đối trừ VTEC chi tiết. Có vướng mắc nào trong cách tao đang dùng VTEC không? Tối ưu thế nào?')">
-            <div class="quick-btn-icon">⇄</div>
-            <div class="quick-btn-title">Tối ưu VTEC</div>
-            <div class="quick-btn-sub">Đối trừ + chiến lược</div>
+          <button class="quick-btn" onclick="askAI('Phân tích cân đối giữa các nguồn tiền: VTEC, ABASO, EBASO, Cá nhân. Nguồn nào đang dư, nguồn nào đang thiếu? Có nên chuyển dịch không?')">
+            <div class="quick-btn-icon">🔄</div><div class="quick-btn-title">Cân đối nguồn</div><div class="quick-btn-sub">VTEC · ABASO · EBASO · CN</div>
           </button>
         </div>
       </div>
-
       <div class="ai-section">
         <div class="ai-section-title">💬 Hoặc hỏi gì cũng được</div>
         <div class="chat-input-wrap">
-          <textarea class="chat-input" id="chat-input" placeholder="vd: Tao nên chi cái nào trước?" rows="1"></textarea>
+          <textarea class="chat-input" id="chat-input" placeholder="vd: Khoản nào nên chi trước? Nguồn ABASO còn đủ không?" rows="1"></textarea>
           <button class="chat-send" id="chat-send-btn">↑</button>
         </div>
       </div>
     </div>
-
     <div id="ai-conversation" style="display:none;">
       <div class="messages" id="messages"></div>
       <div style="margin-top: 16px;">
@@ -609,144 +560,51 @@
   </div>
 </div>
 
-<!-- SETTINGS -->
-<div id="view-settings" class="view">
-  <div class="topbar settings">
-    <div class="topbar-row">
-      <button class="back-btn" onclick="openView('home')">‹</button>
-      <div class="topbar-title">Cài đặt<div class="topbar-sub">API Key &amp; tuỳ chọn</div></div>
-    </div>
-  </div>
-  <div class="settings-content">
+<!-- Plan/real views -->
 
-    <div class="current-status" id="ai-status-box">
-      <div class="current-status-dot" id="ai-status-dot"></div>
-      <div class="current-status-text" id="ai-status-text">Đang kiểm tra...</div>
-    </div>
-
-    <div class="settings-section-title">Nhà cung cấp AI</div>
-    <div class="settings-section">
-      <div class="settings-row">
-        <div class="settings-row-label">Chọn dịch vụ AI</div>
-        <div class="settings-row-hint">Chọn AI nào mày muốn dùng. Mặc định dùng Gemini vì miễn phí dễ lấy key.</div>
-        <div class="provider-grid">
-          <button class="provider-opt" data-provider="gemini">
-            <span class="provider-opt-icon">✨</span>
-            <span>Gemini</span>
-          </button>
-          <button class="provider-opt" data-provider="claude">
-            <span class="provider-opt-icon">✦</span>
-            <span>Claude</span>
-          </button>
-          <button class="provider-opt" data-provider="openai">
-            <span class="provider-opt-icon">◎</span>
-            <span>OpenAI</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Gemini config -->
-      <div class="settings-row" id="config-gemini" style="display:none;">
-        <div class="settings-row-label">Gemini API Key</div>
-        <div class="settings-row-hint">
-          Lấy miễn phí tại <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--ai);font-weight:600">aistudio.google.com/apikey</a>. Key lưu trên máy mày, không gửi đi đâu khác.
-        </div>
-        <input type="password" class="api-key-input" id="key-gemini" placeholder="AIza..." autocomplete="off">
-        <div style="font-size:11px;color:var(--text-mute);margin-bottom:10px;">Model: <strong>gemini-2.5-flash</strong> (nhanh, miễn phí)</div>
-        <div class="settings-btn-row">
-          <button class="btn-test" onclick="testKey('gemini')">Kiểm tra key</button>
-          <button class="btn-save" onclick="saveKey('gemini')">Lưu &amp; dùng</button>
-        </div>
-        <div class="status-box" id="status-gemini"></div>
-      </div>
-
-      <!-- Claude config -->
-      <div class="settings-row" id="config-claude" style="display:none;">
-        <div class="settings-row-label">Claude API Key</div>
-        <div class="settings-row-hint">
-          Lấy tại <a href="https://console.anthropic.com/" target="_blank" style="color:var(--ai);font-weight:600">console.anthropic.com</a>. Cần nạp tiền để dùng.
-        </div>
-        <input type="password" class="api-key-input" id="key-claude" placeholder="sk-ant-..." autocomplete="off">
-        <div style="font-size:11px;color:var(--text-mute);margin-bottom:10px;">Model: <strong>claude-sonnet-4</strong></div>
-        <div class="settings-btn-row">
-          <button class="btn-test" onclick="testKey('claude')">Kiểm tra key</button>
-          <button class="btn-save" onclick="saveKey('claude')">Lưu &amp; dùng</button>
-        </div>
-        <div class="status-box" id="status-claude"></div>
-        <div class="info-block" style="margin-top:10px;">
-          ⚠ Lưu ý: Claude API không cho gọi trực tiếp từ trình duyệt do CORS. Cần dùng proxy hoặc chạy trong Claude.ai.
-        </div>
-      </div>
-
-      <!-- OpenAI config -->
-      <div class="settings-row" id="config-openai" style="display:none;">
-        <div class="settings-row-label">OpenAI API Key</div>
-        <div class="settings-row-hint">
-          Lấy tại <a href="https://platform.openai.com/api-keys" target="_blank" style="color:var(--ai);font-weight:600">platform.openai.com/api-keys</a>. Cần nạp tiền để dùng.
-        </div>
-        <input type="password" class="api-key-input" id="key-openai" placeholder="sk-..." autocomplete="off">
-        <div style="font-size:11px;color:var(--text-mute);margin-bottom:10px;">Model: <strong>gpt-4o-mini</strong> (rẻ &amp; nhanh)</div>
-        <div class="settings-btn-row">
-          <button class="btn-test" onclick="testKey('openai')">Kiểm tra key</button>
-          <button class="btn-save" onclick="saveKey('openai')">Lưu &amp; dùng</button>
-        </div>
-        <div class="status-box" id="status-openai"></div>
-      </div>
-    </div>
-
-    <div class="settings-section-title">Bảo mật</div>
-    <div class="settings-section">
-      <div class="settings-row">
-        <div class="settings-row-label">Xoá key đang lưu</div>
-        <div class="settings-row-hint">Xoá toàn bộ API key khỏi trình duyệt. Sau khi xoá sẽ không gọi được AI nữa cho đến khi nhập lại.</div>
-        <button class="act-btn del" style="flex:1;color:var(--danger);" onclick="clearKeys()">🗑 Xoá tất cả key</button>
-      </div>
-    </div>
-
-    <div class="info-block">
-      <strong>Lưu ý về bảo mật:</strong> API key được lưu trong localStorage trình duyệt của mày. Không upload lên server. Tuy nhiên nếu dùng máy chung, người khác mở file này có thể thấy key. Nên dùng máy riêng hoặc xoá key sau khi xong.
-    </div>
-  </div>
-</div>
-
-<!-- DETAIL VIEWS -->
 <div id="view-expense-plan" class="view">
   <div class="topbar"><div class="topbar-row"><button class="back-btn" onclick="openView('home')">‹</button><div class="topbar-title">Dự chi<div class="topbar-sub" id="exp-plan-sub">0 khoản</div></div></div></div>
   <div class="detail-header danger"><div class="detail-summary-label">Tổng kế hoạch chi</div><div class="detail-summary-value" id="exp-plan-total">0 ₫</div><div class="detail-summary-meta" id="exp-plan-urgent" style="display:none;"></div></div>
-  <div class="help-note">Các khoản chi đang chờ xử lý. Bấm "✓ Đã chi" khi đã thanh toán.</div>
-  <div class="filter-bar"><span class="filter-bar-title">Danh sách</span><span class="filter-bar-count"> · sắp xếp theo hạn</span></div>
+  <div class="filter-chips" id="exp-plan-filters"></div>
   <div class="txn-list" id="list-expense-plan"></div>
 </div>
 
 <div id="view-income-plan" class="view">
   <div class="topbar"><div class="topbar-row"><button class="back-btn" onclick="openView('home')">‹</button><div class="topbar-title">Dự thu<div class="topbar-sub" id="inc-plan-sub">0 khoản</div></div></div></div>
   <div class="detail-header ok"><div class="detail-summary-label">Tổng kế hoạch thu</div><div class="detail-summary-value" id="inc-plan-total">0 ₫</div></div>
-  <div class="help-note">Các khoản đang chờ thu về. Bấm "✓ Đã thu" khi tiền đã vào.</div>
-  <div class="filter-bar"><span class="filter-bar-title">Danh sách</span><span class="filter-bar-count"> · sắp xếp theo ngày</span></div>
+  <div class="filter-chips" id="inc-plan-filters"></div>
   <div class="txn-list" id="list-income-plan"></div>
 </div>
 
 <div id="view-expense-real" class="view">
   <div class="topbar"><div class="topbar-row"><button class="back-btn" onclick="openView('home')">‹</button><div class="topbar-title">Đã chi thực<div class="topbar-sub" id="exp-real-sub">0 giao dịch</div></div></div></div>
   <div class="detail-header danger"><div class="detail-summary-label">Tổng đã chi thực tế</div><div class="detail-summary-value" id="exp-real-total">0 ₫</div></div>
-  <div class="help-note">Các khoản đã thực sự thanh toán.</div>
-  <div class="filter-bar"><span class="filter-bar-title">Sao kê</span><span class="filter-bar-count"> · mới nhất trước</span></div>
+  <div class="filter-chips" id="exp-real-filters"></div>
   <div class="txn-list" id="list-expense-real"></div>
 </div>
 
 <div id="view-income-real" class="view">
   <div class="topbar"><div class="topbar-row"><button class="back-btn" onclick="openView('home')">‹</button><div class="topbar-title">Đã thu thực<div class="topbar-sub" id="inc-real-sub">0 giao dịch</div></div></div></div>
   <div class="detail-header ok"><div class="detail-summary-label">Tổng đã thu thực tế</div><div class="detail-summary-value" id="inc-real-total">0 ₫</div></div>
-  <div class="help-note">Các khoản đã thực sự nhận tiền.</div>
-  <div class="filter-bar"><span class="filter-bar-title">Sao kê</span><span class="filter-bar-count"> · mới nhất trước</span></div>
+  <div class="filter-chips" id="inc-real-filters"></div>
   <div class="txn-list" id="list-income-real"></div>
 </div>
 
-<div id="view-vtec" class="view">
-  <div class="topbar"><div class="topbar-row"><button class="back-btn" onclick="openView('home')">‹</button><div class="topbar-title">Đối trừ qua VTEC<div class="topbar-sub">Bao gồm cả dự & thực</div></div></div></div>
-  <div class="detail-header"><div class="detail-summary-label">Chênh lệch</div><div class="detail-summary-value" id="vtec-diff-big">0 ₫</div><div class="detail-summary-meta">Thu <strong id="vtec-in-meta">0</strong> · Chi <strong id="vtec-out-meta">0</strong></div></div>
-  <div class="filter-bar"><span class="filter-bar-title">Tất cả khoản VTEC</span></div>
-  <div class="txn-list" id="list-vtec"></div>
+<!-- Debt -->
+
+<div id="view-debt" class="view">
+  <div class="topbar debt"><div class="topbar-row"><button class="back-btn" onclick="openView('home')">‹</button><div class="topbar-title">Quản lý nợ<div class="topbar-sub">Nợ vay · Công nợ · Nợ phải trả</div></div></div></div>
+  <div class="detail-header debt-color">
+    <div class="detail-summary-label">Tổng dư nợ</div>
+    <div class="detail-summary-value" id="debt-total">0 ₫</div>
+    <div class="detail-summary-meta">
+      <span style="margin-right:10px">Nợ vay: <strong id="debt-vay-meta">0</strong></span>
+      <span style="margin-right:10px">Công nợ: <strong id="debt-cong-meta">0</strong></span>
+      <span>Phải trả: <strong id="debt-tra-meta">0</strong></span>
+    </div>
+  </div>
+  <div class="filter-chips" id="debt-filters"></div>
+  <div class="txn-list" id="list-debt"></div>
 </div>
 
 <button class="fab" id="fab-btn" aria-label="Thêm khoản">+</button>
@@ -754,10 +612,7 @@
 <div class="sheet-backdrop" id="sheet-bd"></div>
 <div class="sheet" id="sheet">
   <div class="sheet-handle"></div>
-  <div class="sheet-head">
-    <div class="sheet-title" id="sheet-title">Thêm khoản mới</div>
-    <button class="sheet-close" id="sheet-close">×</button>
-  </div>
+  <div class="sheet-head"><div class="sheet-title" id="sheet-title">Thêm khoản mới</div><button class="sheet-close" id="sheet-close">×</button></div>
   <div class="sheet-body">
     <div class="type-switch">
       <button class="type-opt expense active" data-type="expense">Chi</button>
@@ -767,17 +622,29 @@
       <button class="status-opt active" data-status="plan">📋 Dự kiến</button>
       <button class="status-opt" data-status="real">✓ Đã xảy ra</button>
     </div>
-    <div class="field field-amount">
-      <label class="field-label">Số tiền (₫)</label>
-      <input type="text" id="f-amount" inputmode="numeric" placeholder="0">
+    <div class="field field-amount"><label class="field-label">Số tiền (₫)</label><input type="text" id="f-amount" inputmode="numeric" placeholder="0"></div>
+    <div class="field"><label class="field-label">Tên khoản</label><input type="text" id="f-name" placeholder="vd: Lương Bánh..."></div>
+    <div class="field-row">
+      <div class="field"><label class="field-label" id="f-date-label">Ngày</label><input type="date" id="f-date"></div>
+      <div class="field"><label class="field-label optional">Giờ</label><input type="time" id="f-time"></div>
     </div>
     <div class="field">
-      <label class="field-label">Tên khoản</label>
-      <input type="text" id="f-name" placeholder="vd: Lương Bánh, Công nợ máy in...">
+      <label class="field-label">Nguồn tiền</label>
+      <div class="source-grid">
+        <button class="source-opt vtec active" data-source="vtec">VTEC</button>
+        <button class="source-opt abaso" data-source="abaso">ABASO</button>
+        <button class="source-opt ebaso" data-source="ebaso">EBASO</button>
+        <button class="source-opt personal" data-source="personal">Cá nhân</button>
+      </div>
     </div>
     <div class="field">
-      <label class="field-label" id="f-date-label">Ngày dự kiến</label>
-      <input type="date" id="f-date">
+      <label class="field-label optional">Loại nợ</label>
+      <div class="debt-grid">
+        <button class="debt-opt none active" data-debt="none">— Không —</button>
+        <button class="debt-opt vay" data-debt="vay">Nợ vay</button>
+        <button class="debt-opt cong" data-debt="cong">Công nợ</button>
+        <button class="debt-opt tra" data-debt="tra">Phải trả</button>
+      </div>
     </div>
     <div class="field" id="f-priority-wrap">
       <label class="field-label">Mức độ ưu tiên</label>
@@ -792,66 +659,99 @@
 </div>
 
 <script>
-const KEY = 'cashflow_v2';
-const SETTINGS_KEY = 'cashflow_ai_settings';
+const KEY = 'cashflow_v3';
+const AI_KEY = 'cashflow_ai_config';
 let state = load();
-let aiSettings = loadSettings();
+let aiConfig = loadAIConfig();
 let currentView = 'home';
 let formType = 'expense';
 let formStatus = 'plan';
 let formPriority = 'Cao';
+let formSource = 'vtec';
+let formDebt = 'none';
+let editingId = null;
+let editingListKey = null;
 let chatHistory = [];
 
-function loadSettings() {
-  try {
-    const raw = localStorage.getItem(SETTINGS_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  return { provider: 'gemini', keys: { gemini: '', claude: '', openai: '' } };
-}
-function saveSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(aiSettings)); }
+// Filters per view
+let filters = {
+  'expense-plan': { source: 'all', debt: 'all' },
+  'income-plan': { source: 'all', debt: 'all' },
+  'expense-real': { source: 'all', debt: 'all' },
+  'income-real': { source: 'all', debt: 'all' },
+  'debt': { source: 'all', debt: 'all' }
+};
+
+const SOURCES = [
+  { id: 'vtec', name: 'VTEC', color: 'var(--vtec)' },
+  { id: 'abaso', name: 'ABASO', color: 'var(--abaso)' },
+  { id: 'ebaso', name: 'EBASO', color: 'var(--ebaso)' },
+  { id: 'personal', name: 'Cá nhân', color: 'var(--personal)' }
+];
+const DEBT_TYPES = [
+  { id: 'vay', name: 'Nợ vay', short: 'Nợ vay' },
+  { id: 'cong', name: 'Công nợ', short: 'Công nợ' },
+  { id: 'tra', name: 'Nợ phải trả', short: 'Phải trả' }
+];
 
 function load() {
   try {
     const raw = localStorage.getItem(KEY);
     if (raw) return JSON.parse(raw);
-    const oldRaw = localStorage.getItem('cashflow_v1');
+    // migrate from v2
+    const oldRaw = localStorage.getItem('cashflow_v2');
     if (oldRaw) {
       const old = JSON.parse(oldRaw);
-      const migrated = { expenses: old.expenses||[], incomes: old.incomes||[], realExpenses: [], realIncomes: [] };
-      (old.history || []).forEach(h => {
-        const { type, completedAt, ...rest } = h;
-        if (type === 'expense') migrated.realExpenses.push({ ...rest, completedAt });
-        else migrated.realIncomes.push({ ...rest, completedAt });
-      });
-      return migrated;
+      const migrate = (arr) => (arr||[]).map(x => ({
+        ...x,
+        source: x.vtec ? 'vtec' : 'personal',
+        debt: 'none',
+        time: ''
+      }));
+      return {
+        expenses: migrate(old.expenses),
+        incomes: migrate(old.incomes),
+        realExpenses: migrate(old.realExpenses),
+        realIncomes: migrate(old.realIncomes)
+      };
     }
   } catch(e) {}
   return {
     expenses: [
-      { id: id(), date: '2026-05-14', name: 'Lương Bánh', amount: 6400000, priority: 'Cao', vtec: false },
-      { id: id(), date: '2026-05-14', name: 'Nợ Trường', amount: 2500000, priority: 'Cao', vtec: false },
-      { id: id(), date: '2026-05-14', name: 'Công nợ Vận chuyển', amount: 9500000, priority: 'Trung bình', vtec: false },
-      { id: id(), date: '2026-05-13', name: 'Lương Phương Anh', amount: 9000000, priority: 'Cao', vtec: false },
-      { id: id(), date: '2026-05-14', name: 'Công nợ KT Đồng', amount: 10000000, priority: 'Cao', vtec: true },
-      { id: id(), date: '2026-05-14', name: 'Công nợ Gia công', amount: 11500000, priority: 'Cao', vtec: true },
+      { id: id(), date: '2026-05-14', time: '', name: 'Lương Bánh', amount: 6400000, priority: 'Cao', source: 'personal', debt: 'tra' },
+      { id: id(), date: '2026-05-14', time: '', name: 'Nợ Trường', amount: 2500000, priority: 'Cao', source: 'personal', debt: 'tra' },
+      { id: id(), date: '2026-05-14', time: '', name: 'Công nợ Vận chuyển', amount: 9500000, priority: 'Trung bình', source: 'abaso', debt: 'tra' },
+      { id: id(), date: '2026-05-13', time: '', name: 'Lương Phương Anh', amount: 9000000, priority: 'Cao', source: 'personal', debt: 'tra' },
+      { id: id(), date: '2026-05-14', time: '', name: 'Công nợ KT Đồng', amount: 10000000, priority: 'Cao', source: 'vtec', debt: 'tra' },
+      { id: id(), date: '2026-05-14', time: '', name: 'Công nợ Gia công', amount: 11500000, priority: 'Cao', source: 'vtec', debt: 'tra' },
     ],
     incomes: [
-      { id: id(), date: '2026-05-14', name: 'Công nợ khách máy in', amount: 37000000, vtec: false },
-      { id: id(), date: '2026-05-14', name: 'Vtec đã chi trước', amount: 20000000, vtec: true },
-      { id: id(), date: '2026-05-14', name: 'Màn hình LCD', amount: 4900000, vtec: false },
-      { id: id(), date: '2026-05-15', name: 'Phần mềm In ấn lần 1', amount: 10000000, vtec: false },
-      { id: id(), date: '2026-05-19', name: 'Tiền hàng MCL', amount: 12500000, vtec: false },
-      { id: id(), date: '2026-05-20', name: 'Công nợ bánh', amount: 16000000, vtec: false },
+      { id: id(), date: '2026-05-14', time: '', name: 'Công nợ khách máy in', amount: 37000000, source: 'abaso', debt: 'cong' },
+      { id: id(), date: '2026-05-14', time: '', name: 'Vtec đã chi trước', amount: 20000000, source: 'vtec', debt: 'cong' },
+      { id: id(), date: '2026-05-14', time: '', name: 'Màn hình LCD', amount: 4900000, source: 'abaso', debt: 'none' },
+      { id: id(), date: '2026-05-15', time: '', name: 'Phần mềm In ấn lần 1', amount: 10000000, source: 'abaso', debt: 'cong' },
+      { id: id(), date: '2026-05-19', time: '', name: 'Tiền hàng MCL', amount: 12500000, source: 'abaso', debt: 'none' },
+      { id: id(), date: '2026-05-20', time: '', name: 'Công nợ bánh', amount: 16000000, source: 'personal', debt: 'cong' },
     ],
     realExpenses: [], realIncomes: []
   };
 }
 function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
-function id() { return Math.random().toString(36).slice(2, 10); }
+function loadAIConfig() {
+  try { const raw = localStorage.getItem(AI_KEY); if (raw) return JSON.parse(raw); } catch(e) {}
+  return { provider: 'none', geminiKey: '', claudeKey: '' };
+}
+function saveAIConfig() { localStorage.setItem(AI_KEY, JSON.stringify(aiConfig)); }
 
+function id() { return Math.random().toString(36).slice(2, 10); }
 function fmt(n) { if (!n) return '0'; return Number(n).toLocaleString('vi-VN'); }
 function fmtMoney(n) { return fmt(n) + ' ₫'; }
+function fmtShort(n) {
+  if (!n) return '0';
+  if (n >= 1000000) return (n/1000000).toFixed(n%1000000===0?0:1).replace('.0','') + 'tr';
+  if (n >= 1000) return (n/1000).toFixed(0) + 'k';
+  return fmt(n);
+}
 function parseNum(s) { if (!s) return 0; return Number(String(s).replace(/[^\d]/g, '')) || 0; }
 function fmtDateVN(s) { if (!s) return ''; const [y,m,d] = s.split('-'); return `${d}/${m}`; }
 function today() { return new Date().toISOString().slice(0,10); }
@@ -862,27 +762,40 @@ function daysFromToday(dateStr) {
   return Math.round((d - t) / 86400000);
 }
 function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function getMonthShort(s) { if (!s) return ''; const m = ['T01','T02','T03','T04','T05','T06','T07','T08','T09','T10','T11','T12']; return m[parseInt(s.split('-')[1])-1]; }
+function getMonthShort(s) { if (!s) return ''; const months = ['T01','T02','T03','T04','T05','T06','T07','T08','T09','T10','T11','T12']; return months[parseInt(s.split('-')[1])-1]; }
 function getDayOnly(s) { return s ? s.split('-')[2] : ''; }
+function getSourceName(id) { const s = SOURCES.find(x => x.id === id); return s ? s.name : id; }
+function getDebtName(id) { const d = DEBT_TYPES.find(x => x.id === id); return d ? d.short : ''; }
 
 function openView(name) {
   currentView = name;
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'instant' });
-  if (name === 'ai') { renderAISnapshot(); renderAIWarning(); }
+  if (name === 'ai') { renderAISnapshot(); renderAIView(); }
   if (name === 'settings') renderSettings();
 }
 
 function render() {
   renderHome();
+  renderSourcePills();
   renderExpensePlan();
   renderIncomePlan();
   renderExpenseReal();
   renderIncomeReal();
-  renderVtec();
+  renderDebt();
   renderChart();
   renderAIBanner();
+}
+
+function getSourceTotals() {
+  const totals = {};
+  SOURCES.forEach(s => totals[s.id] = { realIn: 0, realOut: 0, planIn: 0, planOut: 0 });
+  state.expenses.forEach(x => { if (totals[x.source]) totals[x.source].planOut += x.amount; });
+  state.incomes.forEach(x => { if (totals[x.source]) totals[x.source].planIn += x.amount; });
+  state.realExpenses.forEach(x => { if (totals[x.source]) totals[x.source].realOut += x.amount; });
+  state.realIncomes.forEach(x => { if (totals[x.source]) totals[x.source].realIn += x.amount; });
+  return totals;
 }
 
 function renderHome() {
@@ -891,6 +804,7 @@ function renderHome() {
   const dd = String(d.getDate()).padStart(2,'0');
   const mm = String(d.getMonth()+1).padStart(2,'0');
   document.getElementById('home-date').textContent = `${days[d.getDay()]}, ${dd}/${mm}/${d.getFullYear()}`;
+
   const totalPlanE = state.expenses.reduce((s,x)=>s+x.amount,0);
   const totalPlanI = state.incomes.reduce((s,x)=>s+x.amount,0);
   const totalRealE = state.realExpenses.reduce((s,x)=>s+x.amount,0);
@@ -898,6 +812,7 @@ function renderHome() {
   const realNet = totalRealI - totalRealE;
   document.getElementById('home-balance').textContent = (realNet >= 0 ? '+' : '−') + fmtMoney(Math.abs(realNet));
   document.getElementById('home-balance-sub').textContent = `Đã thu ${fmtMoney(totalRealI)} − Đã chi ${fmtMoney(totalRealE)}`;
+
   document.getElementById('home-real-in').textContent = '+' + fmtMoney(totalRealI);
   document.getElementById('home-real-in-sub').textContent = `${state.realIncomes.length} giao dịch`;
   document.getElementById('home-real-out').textContent = '−' + fmtMoney(totalRealE);
@@ -910,57 +825,122 @@ function renderHome() {
   document.getElementById('home-real-in-meta').textContent = `${state.realIncomes.length} giao dịch`;
   document.getElementById('home-real-out-val').textContent = '−' + fmtMoney(totalRealE);
   document.getElementById('home-real-out-meta').textContent = `${state.realExpenses.length} giao dịch`;
-  const vIn = state.incomes.filter(x=>x.vtec).reduce((s,x)=>s+x.amount,0) + state.realIncomes.filter(x=>x.vtec).reduce((s,x)=>s+x.amount,0);
-  const vOut = state.expenses.filter(x=>x.vtec).reduce((s,x)=>s+x.amount,0) + state.realExpenses.filter(x=>x.vtec).reduce((s,x)=>s+x.amount,0);
-  const vDiff = vIn - vOut;
-  if (vIn > 0 || vOut > 0) {
-    document.getElementById('home-vtec-section').style.display = 'block';
-    const valEl = document.getElementById('home-vtec-val');
-    valEl.textContent = (vDiff >= 0 ? '+' : '−') + fmtMoney(Math.abs(vDiff));
-    valEl.style.color = vDiff >= 0 ? 'var(--ok)' : 'var(--danger)';
-    document.getElementById('home-vtec-meta').textContent = `Thu ${fmtMoney(vIn)} · Chi ${fmtMoney(vOut)}`;
-  } else { document.getElementById('home-vtec-section').style.display = 'none'; }
+
+  // Debt summary - only debts in PLAN expenses (chưa trả) + plan incomes có loại công nợ (chưa thu)
+  let debtTotal = 0, dVay = 0, dCong = 0, dTra = 0;
+  const collectDebts = (arr) => arr.forEach(x => {
+    if (x.debt && x.debt !== 'none') {
+      debtTotal += x.amount;
+      if (x.debt === 'vay') dVay += x.amount;
+      else if (x.debt === 'cong') dCong += x.amount;
+      else if (x.debt === 'tra') dTra += x.amount;
+    }
+  });
+  collectDebts(state.expenses);
+  collectDebts(state.incomes);
+  document.getElementById('home-debt-val').textContent = fmtMoney(debtTotal);
+
+  // Urgent
   let urgentCount = 0, urgentSum = 0;
   state.expenses.forEach(x => { const d = daysFromToday(x.date); if (d !== null && d <= 0) { urgentCount++; urgentSum += x.amount; } });
   if (urgentCount > 0) {
     document.getElementById('home-alert-wrap').style.display = 'block';
     document.getElementById('home-alert-text').innerHTML = `<strong>${urgentCount} khoản chi</strong> quá hạn hoặc đến hạn hôm nay — <strong>${fmtMoney(urgentSum)}</strong>`;
-  } else { document.getElementById('home-alert-wrap').style.display = 'none'; }
+  } else {
+    document.getElementById('home-alert-wrap').style.display = 'none';
+  }
+}
+
+function renderSourcePills() {
+  const totals = getSourceTotals();
+  const wrap = document.getElementById('source-pills');
+  wrap.innerHTML = SOURCES.map(s => {
+    const t = totals[s.id];
+    const net = (t.realIn + t.planIn) - (t.realOut + t.planOut);
+    return `<div class="source-pill ${s.id}">
+      <div class="source-pill-label">${s.name}</div>
+      <div class="source-pill-value" style="color:${net >= 0 ? 'var(--ok)' : 'var(--danger)'}">${net >= 0 ? '+' : '−'}${fmtShort(Math.abs(net))}</div>
+    </div>`;
+  }).join('');
 }
 
 function renderAIBanner() {
+  const banner = document.getElementById('ai-banner');
+  const titleEl = document.getElementById('ai-banner-title');
+  const subEl = document.getElementById('ai-banner-sub');
+  if (aiConfig.provider === 'none' || !getActiveKey()) {
+    banner.classList.add('disabled');
+    titleEl.textContent = '⚙ Bật AI tư vấn';
+    subEl.textContent = 'Bấm để cấu hình API key (Gemini miễn phí hoặc Claude)';
+    return;
+  }
+  banner.classList.remove('disabled');
   let urgent = 0;
   state.expenses.forEach(x => { const d = daysFromToday(x.date); if (d !== null && d <= 0) urgent++; });
   const totalPlanE = state.expenses.reduce((s,x)=>s+x.amount,0);
   const totalPlanI = state.incomes.reduce((s,x)=>s+x.amount,0);
-  const titleEl = document.getElementById('ai-banner-title');
-  const subEl = document.getElementById('ai-banner-sub');
-  const statusEl = document.getElementById('ai-banner-status');
+  if (urgent > 0) { titleEl.textContent = `⚠ Có ${urgent} khoản gấp - Xin AI tư vấn`; subEl.textContent = `Bấm để ${aiConfig.provider === 'gemini' ? 'Gemini' : 'Claude'} phân tích`; }
+  else if (totalPlanE > totalPlanI) { titleEl.textContent = 'Dòng tiền âm - Cần chiến lược'; subEl.textContent = 'Dự chi đang vượt dự thu, hỏi AI cách cân đối'; }
+  else { titleEl.textContent = `Hỏi ${aiConfig.provider === 'gemini' ? 'Gemini' : 'Claude'} về dòng tiền`; subEl.textContent = 'Phân tích rủi ro · Đề xuất chiến lược'; }
+}
 
-  // Provider status
-  const providerName = aiSettings.provider === 'gemini' ? 'Gemini' : aiSettings.provider === 'claude' ? 'Claude' : 'GPT';
-  const hasKey = !!aiSettings.keys[aiSettings.provider];
-  if (hasKey) {
-    statusEl.style.display = 'inline-block';
-    statusEl.textContent = providerName;
-  } else {
-    statusEl.style.display = 'none';
-  }
+function onAIBannerClick() {
+  if (aiConfig.provider === 'none' || !getActiveKey()) openView('settings');
+  else openView('ai');
+}
+function getActiveKey() {
+  if (aiConfig.provider === 'gemini') return aiConfig.geminiKey;
+  if (aiConfig.provider === 'claude') return aiConfig.claudeKey;
+  return null;
+}
 
-  if (urgent > 0) {
-    titleEl.innerHTML = `⚠ Có ${urgent} khoản gấp - Xin AI tư vấn`;
-    subEl.textContent = 'Bấm để AI phân tích và đề xuất xử lý';
-  } else if (totalPlanE > totalPlanI) {
-    titleEl.innerHTML = 'Dòng tiền âm - Cần chiến lược';
-    subEl.textContent = 'Dự chi đang vượt dự thu';
-  } else {
-    titleEl.innerHTML = 'Hỏi AI về dòng tiền';
-    subEl.textContent = 'Phân tích rủi ro · Đề xuất chiến lược';
+function renderAIView() {
+  const noKey = document.getElementById('no-key-view');
+  const welcome = document.getElementById('ai-welcome');
+  const conv = document.getElementById('ai-conversation');
+  const sub = document.getElementById('ai-topbar-sub');
+  if (aiConfig.provider === 'none' || !getActiveKey()) {
+    noKey.style.display = 'block'; welcome.style.display = 'none'; conv.style.display = 'none';
+    sub.textContent = 'Chưa cấu hình AI'; return;
   }
-  // Re-add status badge
-  if (hasKey) {
-    titleEl.innerHTML += `<span class="ai-banner-status">${providerName}</span>`;
-  }
+  noKey.style.display = 'none';
+  sub.textContent = aiConfig.provider === 'gemini' ? 'Sử dụng Google Gemini' : 'Sử dụng Anthropic Claude';
+  if (chatHistory.length === 0) { welcome.style.display = 'block'; conv.style.display = 'none'; }
+  else { welcome.style.display = 'none'; conv.style.display = 'block'; }
+}
+
+function renderFilterChips(viewKey, items) {
+  const wrap = document.getElementById(viewKey + '-filters');
+  if (!wrap) return;
+  const f = filters[viewKey];
+  const sourcesUsed = new Set(items.map(x => x.source).filter(Boolean));
+  const debtsUsed = new Set(items.map(x => x.debt).filter(d => d && d !== 'none'));
+  let html = `<button class="filter-chip ${f.source === 'all' && f.debt === 'all' ? 'active' : ''}" onclick="setFilter('${viewKey}','source','all');setFilter('${viewKey}','debt','all')">Tất cả</button>`;
+  SOURCES.forEach(s => {
+    if (sourcesUsed.has(s.id)) {
+      html += `<button class="filter-chip ${f.source === s.id ? 'active source' : ''}" onclick="setFilter('${viewKey}','source','${s.id}')">${s.name}</button>`;
+    }
+  });
+  DEBT_TYPES.forEach(d => {
+    if (debtsUsed.has(d.id)) {
+      html += `<button class="filter-chip ${f.debt === d.id ? 'active debt' : ''}" onclick="setFilter('${viewKey}','debt','${d.id}')">${d.short}</button>`;
+    }
+  });
+  wrap.innerHTML = html;
+}
+
+function setFilter(viewKey, type, value) {
+  filters[viewKey][type] = value;
+  render();
+}
+
+function applyFilter(items, viewKey) {
+  const f = filters[viewKey];
+  return items.filter(x => {
+    if (f.source !== 'all' && x.source !== f.source) return false;
+    if (f.debt !== 'all' && x.debt !== f.debt) return false;
+    return true;
+  });
 }
 
 function renderTxnItemPlan(item, type) {
@@ -977,112 +957,170 @@ function renderTxnItemPlan(item, type) {
     }
   }
   let tags = '';
-  if (type === 'expense') {
+  if (type === 'expense' && item.priority) {
     const priClass = item.priority === 'Cao' ? 'cao' : item.priority === 'Trung bình' ? 'tb' : 'thap';
     tags += `<span class="tag ${priClass}">${item.priority}</span>`;
   }
-  if (item.vtec) tags += `<span class="tag vtec">⇄ VTEC</span>`;
+  if (item.source) tags += `<span class="tag ${item.source}">${getSourceName(item.source)}</span>`;
+  if (item.debt && item.debt !== 'none') tags += `<span class="tag debt-${item.debt}">${getDebtName(item.debt)}</span>`;
   const doneLabel = type === 'expense' ? '✓ Đã chi' : '✓ Đã thu';
   const amountPrefix = type === 'expense' ? '−' : '+';
-  return `<div class="txn-item">
-    <div class="txn-date-col"><div class="txn-date-day">${getDayOnly(item.date)}</div><div class="txn-date-month">${getMonthShort(item.date)}</div></div>
-    <div class="txn-main">
-      <div class="txn-name">${escapeHtml(item.name)}</div>
-      ${tags ? `<div class="txn-tags">${tags}</div>` : ''}
-      <div class="txn-actions">
-        <button class="act-btn vtec-btn ${item.vtec ? 'on' : ''}" onclick="toggleVtec('${type}','plan','${item.id}')">⇄ VTEC</button>
-        <button class="act-btn done" onclick="markReal('${type}','${item.id}')">${doneLabel}</button>
-        <button class="act-btn del" onclick="del('${type}','plan','${item.id}')">×</button>
+  const timeDisplay = item.time ? `<div class="txn-date-time">${item.time}</div>` : '';
+  const listKey = type === 'expense' ? 'expenses' : 'incomes';
+  return `
+    <div class="txn-item">
+      <div class="txn-date-col"><div class="txn-date-day">${getDayOnly(item.date)}</div><div class="txn-date-month">${getMonthShort(item.date)}</div>${timeDisplay}</div>
+      <div class="txn-main">
+        <div class="txn-name">${escapeHtml(item.name)}</div>
+        ${tags ? `<div class="txn-tags">${tags}</div>` : ''}
+        <div class="txn-actions">
+          <button class="act-btn edit" onclick="openEdit('${listKey}','${item.id}')">✎ Sửa</button>
+          <button class="act-btn done" onclick="markReal('${type}','${item.id}')">${doneLabel}</button>
+          <button class="act-btn del" onclick="del('${listKey}','${item.id}')">×</button>
+        </div>
       </div>
-    </div>
-    <div><div class="txn-amount ${type}">${amountPrefix}${fmt(item.amount)}</div>${urgentMsg ? `<div class="txn-amount-sub ${urgentClass}">${urgentMsg}</div>` : ''}</div>
-  </div>`;
+      <div>
+        <div class="txn-amount ${type}">${amountPrefix}${fmt(item.amount)}</div>
+        ${urgentMsg ? `<div class="txn-amount-sub ${urgentClass}">${urgentMsg}</div>` : ''}
+      </div>
+    </div>`;
 }
 
 function renderTxnItemReal(item, type) {
   let tags = `<span class="tag done">${type === 'expense' ? 'Đã chi' : 'Đã thu'}</span>`;
-  if (item.vtec) tags += `<span class="tag vtec">⇄ VTEC</span>`;
+  if (item.source) tags += `<span class="tag ${item.source}">${getSourceName(item.source)}</span>`;
+  if (item.debt && item.debt !== 'none') tags += `<span class="tag debt-${item.debt}">${getDebtName(item.debt)}</span>`;
   const cDate = item.completedAt ? new Date(item.completedAt) : null;
   const cStr = cDate ? `${String(cDate.getDate()).padStart(2,'0')}/${String(cDate.getMonth()+1).padStart(2,'0')} ${String(cDate.getHours()).padStart(2,'0')}:${String(cDate.getMinutes()).padStart(2,'0')}` : '';
   const amountPrefix = type === 'expense' ? '−' : '+';
-  return `<div class="txn-item is-real ${type}-real">
-    <div class="txn-date-col"><div class="txn-date-day">${getDayOnly(item.date)}</div><div class="txn-date-month">${getMonthShort(item.date)}</div></div>
-    <div class="txn-main">
-      <div class="txn-name">${escapeHtml(item.name)}</div>
-      <div class="txn-tags">${tags}</div>
-      <div class="txn-actions">
-        <button class="act-btn vtec-btn ${item.vtec ? 'on' : ''}" onclick="toggleVtec('${type}','real','${item.id}')">⇄ VTEC</button>
-        <button class="act-btn undo" onclick="undoReal('${type}','${item.id}')">↺ Hoàn tác</button>
-        <button class="act-btn del" onclick="del('${type}','real','${item.id}')">×</button>
+  const timeDisplay = item.time ? `<div class="txn-date-time">${item.time}</div>` : '';
+  const listKey = type === 'expense' ? 'realExpenses' : 'realIncomes';
+  return `
+    <div class="txn-item is-real ${type}-real">
+      <div class="txn-date-col"><div class="txn-date-day">${getDayOnly(item.date)}</div><div class="txn-date-month">${getMonthShort(item.date)}</div>${timeDisplay}</div>
+      <div class="txn-main">
+        <div class="txn-name">${escapeHtml(item.name)}</div>
+        <div class="txn-tags">${tags}</div>
+        <div class="txn-actions">
+          <button class="act-btn edit" onclick="openEdit('${listKey}','${item.id}')">✎ Sửa</button>
+          <button class="act-btn undo" onclick="undoReal('${type}','${item.id}')">↺ Hoàn tác</button>
+          <button class="act-btn del" onclick="del('${listKey}','${item.id}')">×</button>
+        </div>
       </div>
-    </div>
-    <div><div class="txn-amount ${type}">${amountPrefix}${fmt(item.amount)}</div>${cStr ? `<div class="txn-amount-sub">Lúc ${cStr}</div>` : ''}</div>
-  </div>`;
+      <div>
+        <div class="txn-amount ${type}">${amountPrefix}${fmt(item.amount)}</div>
+        ${cStr ? `<div class="txn-amount-sub">Lúc ${cStr}</div>` : ''}
+      </div>
+    </div>`;
 }
 
 function renderExpensePlan() {
-  const total = state.expenses.reduce((s,x)=>s+x.amount,0);
+  const allItems = state.expenses;
+  const total = allItems.reduce((s,x)=>s+x.amount,0);
   document.getElementById('exp-plan-total').textContent = '−' + fmtMoney(total);
-  document.getElementById('exp-plan-sub').textContent = `${state.expenses.length} khoản · ${fmtMoney(total)}`;
+  document.getElementById('exp-plan-sub').textContent = `${allItems.length} khoản · ${fmtMoney(total)}`;
   let urgentCount = 0;
-  state.expenses.forEach(x => { const d = daysFromToday(x.date); if (d !== null && d <= 0) urgentCount++; });
+  allItems.forEach(x => { const d = daysFromToday(x.date); if (d !== null && d <= 0) urgentCount++; });
   const urgentEl = document.getElementById('exp-plan-urgent');
-  if (urgentCount > 0) { urgentEl.style.display = 'block'; urgentEl.innerHTML = `⚠ <strong>${urgentCount}</strong> khoản cần xử lý gấp`; } else urgentEl.style.display = 'none';
+  if (urgentCount > 0) { urgentEl.style.display = 'block'; urgentEl.innerHTML = `⚠ <strong>${urgentCount}</strong> khoản cần xử lý gấp`; }
+  else urgentEl.style.display = 'none';
+
+  renderFilterChips('expense-plan', allItems);
+  const items = applyFilter(allItems, 'expense-plan');
   const wrap = document.getElementById('list-expense-plan');
-  const sorted = [...state.expenses].sort((a,b) => {
+  const sorted = [...items].sort((a,b) => {
     const pri = { 'Cao': 0, 'Trung bình': 1, 'Thấp': 2 };
     if (a.date !== b.date) return a.date.localeCompare(b.date);
+    if ((a.time||'') !== (b.time||'')) return (a.time||'').localeCompare(b.time||'');
     return (pri[a.priority] ?? 3) - (pri[b.priority] ?? 3);
   });
-  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Không có khoản dự chi<div class="empty-hint">Bấm + để thêm</div></div>` : sorted.map(item => renderTxnItemPlan(item, 'expense')).join('');
+  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Không có khoản nào<div class="empty-hint">Bấm + để thêm hoặc thay đổi bộ lọc</div></div>` : sorted.map(item => renderTxnItemPlan(item, 'expense')).join('');
 }
+
 function renderIncomePlan() {
-  const total = state.incomes.reduce((s,x)=>s+x.amount,0);
+  const allItems = state.incomes;
+  const total = allItems.reduce((s,x)=>s+x.amount,0);
   document.getElementById('inc-plan-total').textContent = '+' + fmtMoney(total);
-  document.getElementById('inc-plan-sub').textContent = `${state.incomes.length} khoản · ${fmtMoney(total)}`;
+  document.getElementById('inc-plan-sub').textContent = `${allItems.length} khoản · ${fmtMoney(total)}`;
+  renderFilterChips('income-plan', allItems);
+  const items = applyFilter(allItems, 'income-plan');
   const wrap = document.getElementById('list-income-plan');
-  const sorted = [...state.incomes].sort((a,b) => a.date.localeCompare(b.date));
-  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Không có khoản dự thu<div class="empty-hint">Bấm + để thêm</div></div>` : sorted.map(item => renderTxnItemPlan(item, 'income')).join('');
+  const sorted = [...items].sort((a,b) => {
+    if (a.date !== b.date) return a.date.localeCompare(b.date);
+    return (a.time||'').localeCompare(b.time||'');
+  });
+  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Không có khoản nào</div>` : sorted.map(item => renderTxnItemPlan(item, 'income')).join('');
 }
+
 function renderExpenseReal() {
-  const total = state.realExpenses.reduce((s,x)=>s+x.amount,0);
+  const allItems = state.realExpenses;
+  const total = allItems.reduce((s,x)=>s+x.amount,0);
   document.getElementById('exp-real-total').textContent = '−' + fmtMoney(total);
-  document.getElementById('exp-real-sub').textContent = `${state.realExpenses.length} giao dịch · ${fmtMoney(total)}`;
+  document.getElementById('exp-real-sub').textContent = `${allItems.length} giao dịch · ${fmtMoney(total)}`;
+  renderFilterChips('expense-real', allItems);
+  const items = applyFilter(allItems, 'expense-real');
   const wrap = document.getElementById('list-expense-real');
-  const sorted = [...state.realExpenses].sort((a,b) => (b.completedAt||0) - (a.completedAt||0));
-  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Chưa có khoản đã chi<div class="empty-hint">Đánh dấu ✓ ở Dự chi để chuyển sang</div></div>` : sorted.map(item => renderTxnItemReal(item, 'expense')).join('');
+  const sorted = [...items].sort((a,b) => (b.completedAt||0) - (a.completedAt||0));
+  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Chưa có khoản đã chi</div>` : sorted.map(item => renderTxnItemReal(item, 'expense')).join('');
 }
+
 function renderIncomeReal() {
-  const total = state.realIncomes.reduce((s,x)=>s+x.amount,0);
+  const allItems = state.realIncomes;
+  const total = allItems.reduce((s,x)=>s+x.amount,0);
   document.getElementById('inc-real-total').textContent = '+' + fmtMoney(total);
-  document.getElementById('inc-real-sub').textContent = `${state.realIncomes.length} giao dịch · ${fmtMoney(total)}`;
+  document.getElementById('inc-real-sub').textContent = `${allItems.length} giao dịch · ${fmtMoney(total)}`;
+  renderFilterChips('income-real', allItems);
+  const items = applyFilter(allItems, 'income-real');
   const wrap = document.getElementById('list-income-real');
-  const sorted = [...state.realIncomes].sort((a,b) => (b.completedAt||0) - (a.completedAt||0));
-  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Chưa có khoản đã thu<div class="empty-hint">Đánh dấu ✓ ở Dự thu để chuyển sang</div></div>` : sorted.map(item => renderTxnItemReal(item, 'income')).join('');
+  const sorted = [...items].sort((a,b) => (b.completedAt||0) - (a.completedAt||0));
+  wrap.innerHTML = sorted.length === 0 ? `<div class="empty"><div class="empty-icon">○</div>Chưa có khoản đã thu</div>` : sorted.map(item => renderTxnItemReal(item, 'income')).join('');
 }
-function renderVtec() {
-  const planIn = state.incomes.filter(x=>x.vtec);
-  const planOut = state.expenses.filter(x=>x.vtec);
-  const realIn = state.realIncomes.filter(x=>x.vtec);
-  const realOut = state.realExpenses.filter(x=>x.vtec);
-  const vIn = [...planIn, ...realIn].reduce((s,x)=>s+x.amount,0);
-  const vOut = [...planOut, ...realOut].reduce((s,x)=>s+x.amount,0);
-  const diff = vIn - vOut;
-  document.getElementById('vtec-diff-big').textContent = (diff >= 0 ? '+' : '−') + fmtMoney(Math.abs(diff));
-  document.getElementById('vtec-in-meta').textContent = '+' + fmtMoney(vIn);
-  document.getElementById('vtec-out-meta').textContent = '−' + fmtMoney(vOut);
-  const wrap = document.getElementById('list-vtec');
-  if (planIn.length === 0 && planOut.length === 0 && realIn.length === 0 && realOut.length === 0) {
-    wrap.innerHTML = `<div class="empty"><div class="empty-icon">○</div>Chưa có khoản VTEC<div class="empty-hint">Bấm ⇄ VTEC trên mỗi khoản để đánh dấu</div></div>`;
+
+function renderDebt() {
+  // Collect all items with debt != 'none'
+  const planE = state.expenses.filter(x => x.debt && x.debt !== 'none');
+  const planI = state.incomes.filter(x => x.debt && x.debt !== 'none');
+  const realE = state.realExpenses.filter(x => x.debt && x.debt !== 'none');
+  const realI = state.realIncomes.filter(x => x.debt && x.debt !== 'none');
+
+  const allDebts = [
+    ...planE.map(x => ({...x, _type: 'expense', _status: 'plan'})),
+    ...planI.map(x => ({...x, _type: 'income', _status: 'plan'})),
+    ...realE.map(x => ({...x, _type: 'expense', _status: 'real'})),
+    ...realI.map(x => ({...x, _type: 'income', _status: 'real'}))
+  ];
+
+  // Totals by debt category - only count PLAN items (chưa giải quyết)
+  let total = 0, vay = 0, cong = 0, tra = 0;
+  [...planE, ...planI].forEach(x => {
+    total += x.amount;
+    if (x.debt === 'vay') vay += x.amount;
+    else if (x.debt === 'cong') cong += x.amount;
+    else if (x.debt === 'tra') tra += x.amount;
+  });
+  document.getElementById('debt-total').textContent = fmtMoney(total);
+  document.getElementById('debt-vay-meta').textContent = fmtShort(vay);
+  document.getElementById('debt-cong-meta').textContent = fmtShort(cong);
+  document.getElementById('debt-tra-meta').textContent = fmtShort(tra);
+
+  renderFilterChips('debt', allDebts);
+  const filtered = applyFilter(allDebts, 'debt');
+  const wrap = document.getElementById('list-debt');
+  if (filtered.length === 0) {
+    wrap.innerHTML = `<div class="empty"><div class="empty-icon">○</div>Không có khoản nợ nào<div class="empty-hint">Đánh dấu loại nợ khi thêm khoản chi/thu</div></div>`;
     return;
   }
-  let html = '';
-  planIn.sort((a,b)=>a.date.localeCompare(b.date)).forEach(item => { html += renderTxnItemPlan(item, 'income'); });
-  planOut.sort((a,b)=>a.date.localeCompare(b.date)).forEach(item => { html += renderTxnItemPlan(item, 'expense'); });
-  realIn.sort((a,b)=>(b.completedAt||0)-(a.completedAt||0)).forEach(item => { html += renderTxnItemReal(item, 'income'); });
-  realOut.sort((a,b)=>(b.completedAt||0)-(a.completedAt||0)).forEach(item => { html += renderTxnItemReal(item, 'expense'); });
-  wrap.innerHTML = html;
+  // Sort: unresolved first (plan), then by date
+  filtered.sort((a,b) => {
+    if (a._status !== b._status) return a._status === 'plan' ? -1 : 1;
+    return a.date.localeCompare(b.date);
+  });
+  wrap.innerHTML = filtered.map(item => {
+    if (item._status === 'plan') return renderTxnItemPlan(item, item._type);
+    return renderTxnItemReal(item, item._type);
+  }).join('');
 }
+
 function renderChart() {
   const map = {};
   state.expenses.forEach(x => { if (!map[x.date]) map[x.date] = { inPlan:0, inReal:0, outPlan:0, outReal:0 }; map[x.date].outPlan += x.amount; });
@@ -1115,15 +1153,9 @@ function renderChart() {
 }
 
 // Actions
-function del(type, status, itemId) {
+function del(listKey, itemId) {
   if (!confirm('Xoá khoản này?')) return;
-  if (status === 'plan') {
-    if (type === 'expense') state.expenses = state.expenses.filter(x => x.id !== itemId);
-    else state.incomes = state.incomes.filter(x => x.id !== itemId);
-  } else {
-    if (type === 'expense') state.realExpenses = state.realExpenses.filter(x => x.id !== itemId);
-    else state.realIncomes = state.realIncomes.filter(x => x.id !== itemId);
-  }
+  state[listKey] = state[listKey].filter(x => x.id !== itemId);
   save(); render();
 }
 function markReal(type, itemId) {
@@ -1144,210 +1176,29 @@ function undoReal(type, itemId) {
   else { state.incomes.push(rest); state.realIncomes = state.realIncomes.filter(x => x.id !== itemId); }
   save(); render();
 }
-function toggleVtec(type, status, itemId) {
-  let list;
-  if (status === 'plan') list = type === 'expense' ? state.expenses : state.incomes;
-  else list = type === 'expense' ? state.realExpenses : state.realIncomes;
-  const item = list.find(x => x.id === itemId);
+
+function openEdit(listKey, itemId) {
+  const item = state[listKey].find(x => x.id === itemId);
   if (!item) return;
-  item.vtec = !item.vtec;
-  save(); render();
+  editingId = itemId;
+  editingListKey = listKey;
+  formType = (listKey === 'expenses' || listKey === 'realExpenses') ? 'expense' : 'income';
+  formStatus = (listKey === 'expenses' || listKey === 'incomes') ? 'plan' : 'real';
+  formPriority = item.priority || 'Cao';
+  formSource = item.source || 'vtec';
+  formDebt = item.debt || 'none';
+  document.getElementById('f-amount').value = fmt(item.amount);
+  document.getElementById('f-name').value = item.name;
+  document.getElementById('f-date').value = item.date;
+  document.getElementById('f-time').value = item.time || '';
+  updateFormUI();
+  document.getElementById('sheet-title').textContent = 'Sửa khoản';
+  document.getElementById('submit-btn').textContent = 'Cập nhật';
+  sheet.classList.add('open'); backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
-// ===================== SETTINGS =====================
-function renderSettings() {
-  document.querySelectorAll('.provider-opt').forEach(el => {
-    el.classList.toggle('active', el.dataset.provider === aiSettings.provider);
-  });
-  document.querySelectorAll('[id^="config-"]').forEach(el => el.style.display = 'none');
-  document.getElementById('config-' + aiSettings.provider).style.display = 'block';
-  // Pre-fill keys (masked)
-  document.getElementById('key-gemini').value = aiSettings.keys.gemini || '';
-  document.getElementById('key-claude').value = aiSettings.keys.claude || '';
-  document.getElementById('key-openai').value = aiSettings.keys.openai || '';
-  // Status box
-  const statusBox = document.getElementById('ai-status-box');
-  const statusDot = document.getElementById('ai-status-dot');
-  const statusText = document.getElementById('ai-status-text');
-  const hasKey = !!aiSettings.keys[aiSettings.provider];
-  if (hasKey) {
-    statusDot.classList.remove('off');
-    const name = aiSettings.provider === 'gemini' ? 'Gemini 2.5 Flash' : aiSettings.provider === 'claude' ? 'Claude Sonnet 4' : 'GPT-4o-mini';
-    statusText.innerHTML = `Đang dùng <strong>${name}</strong> · Key đã lưu`;
-  } else {
-    statusDot.classList.add('off');
-    statusText.innerHTML = `Chưa cấu hình AI · <strong>Cần nhập API key</strong> để dùng tính năng AI`;
-  }
-}
-document.querySelectorAll('.provider-opt').forEach(el => {
-  el.addEventListener('click', () => {
-    aiSettings.provider = el.dataset.provider;
-    saveSettings();
-    renderSettings();
-    renderAIBanner();
-  });
-});
-
-function showStatus(provider, type, msg) {
-  const el = document.getElementById('status-' + provider);
-  el.className = 'status-box show ' + type;
-  el.innerHTML = msg;
-}
-
-async function testKey(provider) {
-  const key = document.getElementById('key-' + provider).value.trim();
-  if (!key) { showStatus(provider, 'error', '❌ Vui lòng nhập API key trước'); return; }
-  showStatus(provider, 'info', '⏳ Đang kiểm tra kết nối...');
-  try {
-    const result = await callAI('Trả lời ngắn gọn: "OK" nếu nhận được tin nhắn này.', [], provider, key);
-    if (result && result.toLowerCase().includes('ok')) {
-      showStatus(provider, 'success', '✓ Kết nối thành công! AI trả lời: ' + escapeHtml(result.substring(0, 100)));
-    } else {
-      showStatus(provider, 'success', '✓ Kết nối thành công. AI trả lời: ' + escapeHtml(result.substring(0, 100)));
-    }
-  } catch (err) {
-    showStatus(provider, 'error', '❌ Lỗi: ' + escapeHtml(err.message));
-  }
-}
-function saveKey(provider) {
-  const key = document.getElementById('key-' + provider).value.trim();
-  if (!key) { showStatus(provider, 'error', '❌ Vui lòng nhập API key'); return; }
-  aiSettings.keys[provider] = key;
-  aiSettings.provider = provider;
-  saveSettings();
-  showStatus(provider, 'success', `✓ Đã lưu key và kích hoạt ${provider === 'gemini' ? 'Gemini' : provider === 'claude' ? 'Claude' : 'OpenAI'}.`);
-  renderSettings();
-  renderAIBanner();
-}
-function clearKeys() {
-  if (!confirm('Xoá toàn bộ API key? Sau khi xoá sẽ không gọi được AI nữa.')) return;
-  aiSettings = { provider: 'gemini', keys: { gemini: '', claude: '', openai: '' } };
-  saveSettings();
-  renderSettings();
-  renderAIBanner();
-  alert('Đã xoá toàn bộ key.');
-}
-
-// ===================== AI CALL =====================
-async function callAI(userMessage, history, providerOverride, keyOverride) {
-  const provider = providerOverride || aiSettings.provider;
-  const key = keyOverride || aiSettings.keys[provider];
-  if (!key) throw new Error('Chưa cấu hình API key. Vào Cài đặt để nhập.');
-
-  const systemPrompt = buildSystemPrompt();
-
-  if (provider === 'gemini') {
-    return await callGemini(systemPrompt, history, userMessage, key);
-  } else if (provider === 'claude') {
-    return await callClaude(systemPrompt, history, userMessage, key);
-  } else if (provider === 'openai') {
-    return await callOpenAI(systemPrompt, history, userMessage, key);
-  }
-  throw new Error('Provider không hợp lệ');
-}
-
-async function callGemini(systemPrompt, history, userMessage, key) {
-  // Gemini format: contents array with role user/model
-  const contents = [];
-  history.forEach(m => {
-    if (m.role === 'user') contents.push({ role: 'user', parts: [{ text: m.content }] });
-    else if (m.role === 'assistant') contents.push({ role: 'model', parts: [{ text: m.content }] });
-  });
-  contents.push({ role: 'user', parts: [{ text: userMessage }] });
-
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(key)}`;
-  const body = {
-    systemInstruction: { parts: [{ text: systemPrompt }] },
-    contents: contents,
-    generationConfig: { temperature: 0.7, maxOutputTokens: 2000 }
-  };
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    const errText = await res.text();
-    let errMsg = errText;
-    try { const errJson = JSON.parse(errText); errMsg = errJson.error?.message || errText; } catch(e){}
-    throw new Error('Gemini API: ' + errMsg);
-  }
-  const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.map(p => p.text).join('') || '';
-  if (!text) throw new Error('Gemini không trả về nội dung');
-  return text;
-}
-
-async function callClaude(systemPrompt, history, userMessage, key) {
-  const messages = [];
-  history.forEach(m => {
-    if (m.role === 'user' || m.role === 'assistant') messages.push({ role: m.role, content: m.content });
-  });
-  messages.push({ role: 'user', content: userMessage });
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': key,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 2000,
-      system: systemPrompt,
-      messages: messages
-    })
-  });
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error('Claude API: ' + errText);
-  }
-  const data = await res.json();
-  return data.content.filter(c => c.type === 'text').map(c => c.text).join('\n');
-}
-
-async function callOpenAI(systemPrompt, history, userMessage, key) {
-  const messages = [{ role: 'system', content: systemPrompt }];
-  history.forEach(m => {
-    if (m.role === 'user' || m.role === 'assistant') messages.push({ role: m.role, content: m.content });
-  });
-  messages.push({ role: 'user', content: userMessage });
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: messages,
-      max_tokens: 2000,
-      temperature: 0.7
-    })
-  });
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error('OpenAI API: ' + errText);
-  }
-  const data = await res.json();
-  return data.choices[0].message.content;
-}
-
-function buildSystemPrompt() {
-  const context = buildContextSummary();
-  return `Bạn là một chuyên gia tư vấn tài chính doanh nghiệp dày dạn kinh nghiệm, đang giúp một chủ doanh nghiệp cá nhân Việt Nam quản lý dòng tiền. Phong cách: NGẮN GỌN, THẲNG THẮN, DỰA TRÊN SỐ LIỆU CỤ THỂ, không nói chung chung.
-
-QUY TẮC:
-- Dùng tiếng Việt, xưng "tôi"/"anh" (chuyên nghiệp).
-- Trả lời ngắn (3-6 đoạn ngắn), đi thẳng vào vấn đề.
-- Khi đề xuất, LUÔN dùng số liệu cụ thể từ dữ liệu (tên khoản, số tiền, ngày).
-- Sử dụng định dạng markdown: **bold** cho điểm quan trọng, dùng "- " cho danh sách.
-- Khi phân tích rủi ro: chỉ ra rủi ro CỤ THỂ (khoản nào, kịch bản gì).
-- Khi tư vấn: đưa ra THỨ TỰ ƯU TIÊN (1, 2, 3) với lý do.
-- VTEC là phương thức đối trừ giữa doanh nghiệp của anh với đối tác. Khoản chi VTEC có thể được trừ bằng khoản thu VTEC, không cần dùng tiền mặt.
-
-DỮ LIỆU TÀI CHÍNH HIỆN TẠI:
-${context}`;
-}
-
+// AI helpers
 function buildContextSummary() {
   const totalPlanE = state.expenses.reduce((s,x)=>s+x.amount,0);
   const totalPlanI = state.incomes.reduce((s,x)=>s+x.amount,0);
@@ -1355,67 +1206,82 @@ function buildContextSummary() {
   const totalRealI = state.realIncomes.reduce((s,x)=>s+x.amount,0);
   const realNet = totalRealI - totalRealE;
   const projectedNet = (totalRealI + totalPlanI) - (totalRealE + totalPlanE);
+
+  const sourceTotals = getSourceTotals();
+  const sourceLines = SOURCES.map(s => {
+    const t = sourceTotals[s.id];
+    const net = (t.realIn + t.planIn) - (t.realOut + t.planOut);
+    return `  ${s.name}: thu thực ${fmt(t.realIn)} + chi thực ${fmt(t.realOut)} | dự thu ${fmt(t.planIn)} + dự chi ${fmt(t.planOut)} | NET: ${net >= 0 ? '+' : '-'}${fmt(Math.abs(net))}`;
+  }).join('\n');
+
   const fmtItem = (x, withCompleted = false) => {
     const diff = daysFromToday(x.date);
     let dueInfo = '';
     if (diff !== null) {
-      if (diff < 0) dueInfo = ` [QUÁ HẠN ${-diff} ngày]`;
+      if (diff < 0) dueInfo = ` [QUÁ HẠN ${-diff}n]`;
       else if (diff === 0) dueInfo = ' [HÔM NAY]';
-      else if (diff <= 2) dueInfo = ` [còn ${diff} ngày]`;
+      else if (diff <= 2) dueInfo = ` [còn ${diff}n]`;
     }
-    let s = `- ${x.name}: ${fmt(x.amount)}₫ (ngày ${fmtDateVN(x.date)})${dueInfo}`;
-    if (x.priority) s += ` [ưu tiên: ${x.priority}]`;
-    if (x.vtec) s += ' [VTEC]';
-    if (withCompleted && x.completedAt) {
-      const d = new Date(x.completedAt);
-      s += ` [thực hiện: ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}]`;
-    }
+    let s = `- ${x.name}: ${fmt(x.amount)}đ (${fmtDateVN(x.date)}${x.time ? ' '+x.time : ''})${dueInfo}`;
+    s += ` [${getSourceName(x.source||'?')}]`;
+    if (x.debt && x.debt !== 'none') s += ` [${getDebtName(x.debt)}]`;
+    if (x.priority) s += ` [${x.priority}]`;
+    if (withCompleted && x.completedAt) { const d = new Date(x.completedAt); s += ` [thực hiện: ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}]`; }
     return s;
   };
-  return `=== TÌNH HÌNH DÒNG TIỀN HIỆN TẠI ===
+
+  // Debt summary
+  const debtItems = [...state.expenses, ...state.incomes].filter(x => x.debt && x.debt !== 'none');
+  const dVay = debtItems.filter(x => x.debt === 'vay').reduce((s,x)=>s+x.amount,0);
+  const dCong = debtItems.filter(x => x.debt === 'cong').reduce((s,x)=>s+x.amount,0);
+  const dTra = debtItems.filter(x => x.debt === 'tra').reduce((s,x)=>s+x.amount,0);
+
+  return `=== TÌNH HÌNH DÒNG TIỀN ===
 Hôm nay: ${today()}
 
-SỐ DƯ THỰC TẾ (đã thu - đã chi): ${realNet >= 0 ? '+' : '-'}${fmt(Math.abs(realNet))}₫
-- Đã thu thực: ${fmt(totalRealI)}₫ (${state.realIncomes.length} GD)
-- Đã chi thực: ${fmt(totalRealE)}₫ (${state.realExpenses.length} GD)
+SỐ DƯ THỰC TẾ (đã thu - đã chi): ${realNet >= 0 ? '+' : '-'}${fmt(Math.abs(realNet))}đ
+- Đã thu thực: ${fmt(totalRealI)}đ | Đã chi thực: ${fmt(totalRealE)}đ
+KẾ HOẠCH: Dự thu ${fmt(totalPlanI)}đ - Dự chi ${fmt(totalPlanE)}đ
+Số dư dự kiến cuối kỳ: ${projectedNet >= 0 ? '+' : '-'}${fmt(Math.abs(projectedNet))}đ
 
-KẾ HOẠCH SẮP TỚI:
-- Dự thu: ${fmt(totalPlanI)}₫ (${state.incomes.length} khoản)
-- Dự chi: ${fmt(totalPlanE)}₫ (${state.expenses.length} khoản)
-- Số dư dự kiến cuối kỳ: ${projectedNet >= 0 ? '+' : '-'}${fmt(Math.abs(projectedNet))}₫
+=== THEO NGUỒN TIỀN ===
+${sourceLines}
 
-=== CHI TIẾT DỰ CHI (${state.expenses.length}) ===
+=== TỔNG HỢP NỢ (chưa giải quyết) ===
+- Nợ vay: ${fmt(dVay)}đ
+- Công nợ phải thu/trả: ${fmt(dCong)}đ
+- Nợ phải trả: ${fmt(dTra)}đ
+
+=== DỰ CHI (${state.expenses.length}) ===
 ${state.expenses.length === 0 ? '(không có)' : state.expenses.map(x => fmtItem(x)).join('\n')}
 
-=== CHI TIẾT DỰ THU (${state.incomes.length}) ===
+=== DỰ THU (${state.incomes.length}) ===
 ${state.incomes.length === 0 ? '(không có)' : state.incomes.map(x => fmtItem(x)).join('\n')}
 
 === ĐÃ CHI THỰC (${state.realExpenses.length}) ===
 ${state.realExpenses.length === 0 ? '(chưa có)' : state.realExpenses.map(x => fmtItem(x, true)).join('\n')}
 
 === ĐÃ THU THỰC (${state.realIncomes.length}) ===
-${state.realIncomes.length === 0 ? '(chưa có)' : state.realIncomes.map(x => fmtItem(x, true)).join('\n')}
-
-=== VTEC ===
-${[...state.expenses, ...state.realExpenses].filter(x=>x.vtec).map(x => `Chi: ${x.name} - ${fmt(x.amount)}₫`).join('\n') || '(không có chi VTEC)'}
-${[...state.incomes, ...state.realIncomes].filter(x=>x.vtec).map(x => `Thu: ${x.name} - ${fmt(x.amount)}₫`).join('\n') || '(không có thu VTEC)'}`;
+${state.realIncomes.length === 0 ? '(chưa có)' : state.realIncomes.map(x => fmtItem(x, true)).join('\n')}`;
 }
 
-function renderAIWarning() {
-  const wrap = document.getElementById('ai-warning-box');
-  const hasKey = !!aiSettings.keys[aiSettings.provider];
-  if (!hasKey) {
-    wrap.innerHTML = `<div class="ai-warning">
-      <div class="ai-warning-title">⚠ Chưa cấu hình AI</div>
-      <div class="ai-warning-text">Để dùng tính năng AI, cần nhập API key. Khuyên dùng <strong>Gemini</strong> vì miễn phí và dễ lấy.</div>
-      <button class="ai-warning-btn" onclick="openView('settings')">Đi đến Cài đặt →</button>
-    </div>`;
-  } else {
-    wrap.innerHTML = '';
-  }
-  const name = aiSettings.provider === 'gemini' ? 'Gemini' : aiSettings.provider === 'claude' ? 'Claude' : 'GPT-4o';
-  document.getElementById('ai-topbar-sub').textContent = hasKey ? `Đang dùng ${name} · Dữ liệu thực` : 'Cần cài đặt API key';
-}
+const SYSTEM_PROMPT_BASE = `Bạn là chuyên gia tư vấn tài chính doanh nghiệp dày dạn, đang giúp chủ doanh nghiệp cá nhân Việt Nam quản lý dòng tiền. Phong cách: NGẮN GỌN, THẲNG THẮN, DỰA TRÊN SỐ LIỆU CỤ THỂ.
+
+QUY TẮC:
+- Tiếng Việt, xưng "tôi"/"anh".
+- Trả lời 3-6 đoạn ngắn, đi thẳng vấn đề.
+- LUÔN dùng số liệu cụ thể (tên khoản, số tiền, ngày, GIỜ nếu có, NGUỒN tiền).
+- Markdown: **bold**, "- " cho danh sách.
+- Rủi ro: chỉ ra CỤ THỂ.
+- Tư vấn: thứ tự ưu tiên 1, 2, 3 với lý do.
+
+KHÁI NIỆM:
+- 4 NGUỒN TIỀN: VTEC, ABASO, EBASO, Cá nhân. Mỗi nguồn có số dư riêng. Khoản chi/thu phải thuộc 1 nguồn.
+- 3 LOẠI NỢ: 
+  + Nợ vay = nợ tổ chức tài chính/người cho vay
+  + Công nợ = khoản khách hàng nợ mình (phải thu) hoặc mình nợ NCC chưa thanh toán
+  + Nợ phải trả = các khoản fix phải trả như lương, thuê
+- VTEC còn là phương thức đối trừ: chi VTEC trừ thẳng vào thu VTEC, không dùng tiền mặt.`;
 
 async function renderAISnapshot() {
   const totalPlanE = state.expenses.reduce((s,x)=>s+x.amount,0);
@@ -1432,37 +1298,15 @@ async function renderAISnapshot() {
   document.getElementById('ai-snapshot-text').innerHTML = html;
 }
 
-function showConversation() {
-  document.getElementById('ai-welcome').style.display = 'none';
-  document.getElementById('ai-conversation').style.display = 'block';
-}
-function resetAI() {
-  chatHistory = [];
-  document.getElementById('messages').innerHTML = '';
-  document.getElementById('ai-welcome').style.display = 'block';
-  document.getElementById('ai-conversation').style.display = 'none';
-}
+function resetAI() { chatHistory = []; document.getElementById('messages').innerHTML = ''; renderAIView(); }
 
 function renderMessages() {
   const wrap = document.getElementById('messages');
   wrap.innerHTML = '';
   chatHistory.forEach(m => {
-    if (m.role === 'user') {
-      const div = document.createElement('div');
-      div.className = 'msg-user';
-      div.textContent = m.content;
-      wrap.appendChild(div);
-    } else if (m.role === 'assistant') {
-      const div = document.createElement('div');
-      div.className = 'msg-ai';
-      div.innerHTML = formatAIText(m.content);
-      wrap.appendChild(div);
-    } else if (m.role === 'loading') {
-      const div = document.createElement('div');
-      div.className = 'msg-loading';
-      div.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span> Đang phân tích...';
-      wrap.appendChild(div);
-    }
+    if (m.role === 'user') { const div = document.createElement('div'); div.className = 'msg-user'; div.textContent = m.content; wrap.appendChild(div); }
+    else if (m.role === 'assistant') { const div = document.createElement('div'); div.className = 'msg-ai'; div.innerHTML = formatAIText(m.content); wrap.appendChild(div); }
+    else if (m.role === 'loading') { const div = document.createElement('div'); div.className = 'msg-loading'; div.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span> Đang phân tích...'; wrap.appendChild(div); }
   });
   setTimeout(() => wrap.lastChild?.scrollIntoView({ behavior: 'smooth', block: 'end' }), 50);
 }
@@ -1477,99 +1321,175 @@ function formatAIText(text) {
   html = html.replace(/(<li>.*?<\/li>(\s*<li>.*?<\/li>)*)/gs, '<ul>$1</ul>');
   html = html.replace(/`(.+?)`/g, '<code>$1</code>');
   const paragraphs = html.split(/\n\n+/);
-  html = paragraphs.map(p => {
-    if (p.startsWith('<') || p.trim() === '') return p;
-    return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
-  }).join('\n');
-  return html;
+  return paragraphs.map(p => { if (p.startsWith('<') || p.trim() === '') return p; return '<p>' + p.replace(/\n/g, '<br>') + '</p>'; }).join('\n');
+}
+
+async function callGemini(systemPrompt, messages, apiKey) {
+  const contents = messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }));
+  const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${encodeURIComponent(apiKey)}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ systemInstruction: { parts: [{ text: systemPrompt }] }, contents, generationConfig: { temperature: 0.4, maxOutputTokens: 1500 } })
+  });
+  if (!resp.ok) { const errText = await resp.text(); throw new Error(`Gemini API: ${resp.status} - ${errText.slice(0, 200)}`); }
+  const data = await resp.json();
+  if (!data.candidates || data.candidates.length === 0) throw new Error('Gemini không trả về kết quả.');
+  return data.candidates[0].content.parts.map(p => p.text).join('\n');
+}
+
+async function callClaude(systemPrompt, messages, apiKey) {
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+    body: JSON.stringify({ model: 'claude-3-5-haiku-20241022', max_tokens: 1500, system: systemPrompt, messages: messages.map(m => ({ role: m.role, content: m.content })) })
+  });
+  if (!resp.ok) { const errText = await resp.text(); throw new Error(`Claude API: ${resp.status} - ${errText.slice(0, 200)}`); }
+  const data = await resp.json();
+  return data.content.filter(c => c.type === 'text').map(c => c.text).join('\n');
 }
 
 async function askAI(userMessage) {
   if (!userMessage || !userMessage.trim()) return;
-  if (!aiSettings.keys[aiSettings.provider]) {
-    alert('Chưa cấu hình API key. Vào Cài đặt để nhập.');
-    openView('settings');
-    return;
-  }
-  showConversation();
-  const historyForAPI = [...chatHistory];
+  if (aiConfig.provider === 'none' || !getActiveKey()) { alert('Vui lòng cấu hình API key trong Cài đặt trước.'); openView('settings'); return; }
+  document.getElementById('ai-welcome').style.display = 'none';
+  document.getElementById('ai-conversation').style.display = 'block';
   chatHistory.push({ role: 'user', content: userMessage });
   chatHistory.push({ role: 'loading' });
   renderMessages();
+  const fullSystem = SYSTEM_PROMPT_BASE + '\n\nDỮ LIỆU HIỆN TẠI:\n' + buildContextSummary();
+  const apiMessages = chatHistory.filter(m => m.role === 'user' || m.role === 'assistant').map(m => ({ role: m.role, content: m.content }));
   try {
-    const response = await callAI(userMessage, historyForAPI);
+    let aiText;
+    if (aiConfig.provider === 'gemini') aiText = await callGemini(fullSystem, apiMessages, aiConfig.geminiKey);
+    else aiText = await callClaude(fullSystem, apiMessages, aiConfig.claudeKey);
     chatHistory = chatHistory.filter(m => m.role !== 'loading');
-    chatHistory.push({ role: 'assistant', content: response });
+    chatHistory.push({ role: 'assistant', content: aiText });
     renderMessages();
   } catch (err) {
     chatHistory = chatHistory.filter(m => m.role !== 'loading');
-    chatHistory.push({ role: 'assistant', content: `❌ **Lỗi khi gọi AI**: ${err.message}\n\nKiểm tra lại key trong Cài đặt, hoặc thử provider khác.` });
+    chatHistory.push({ role: 'assistant', content: `❌ **Lỗi:** ${err.message}` });
     renderMessages();
   }
+}
+
+// Settings handlers
+function renderSettings() {
+  document.querySelectorAll('.provider-tab').forEach(t => t.classList.toggle('active', t.dataset.provider === aiConfig.provider));
+  showProviderConfig(aiConfig.provider);
+  document.getElementById('gemini-key').value = aiConfig.geminiKey || '';
+  document.getElementById('claude-key').value = aiConfig.claudeKey || '';
+  const statusEl = document.getElementById('key-status-display');
+  if (aiConfig.provider === 'none' || !getActiveKey()) statusEl.innerHTML = `<div class="key-status no">⚠ AI đang tắt. Cấu hình API key bên dưới.</div>`;
+  else { const name = aiConfig.provider === 'gemini' ? 'Google Gemini' : 'Anthropic Claude'; statusEl.innerHTML = `<div class="key-status ok">✓ Đang sử dụng <strong style="margin-left:4px">${name}</strong></div>`; }
+}
+function showProviderConfig(provider) {
+  document.getElementById('gemini-config').style.display = provider === 'gemini' ? 'block' : 'none';
+  document.getElementById('claude-config').style.display = provider === 'claude' ? 'block' : 'none';
+  document.getElementById('none-config').style.display = provider === 'none' ? 'block' : 'none';
+}
+document.querySelectorAll('.provider-tab').forEach(t => t.addEventListener('click', () => { showProviderConfig(t.dataset.provider); document.querySelectorAll('.provider-tab').forEach(x => x.classList.toggle('active', x === t)); }));
+function toggleKeyVisibility(inputId, btn) { const input = document.getElementById(inputId); if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; } else { input.type = 'password'; btn.textContent = '👁'; } }
+
+async function testKey(provider) {
+  const btn = document.getElementById(`${provider}-test-btn`);
+  const originalText = btn.textContent;
+  btn.disabled = true; btn.textContent = '⏳ Đang kiểm tra...';
+  const key = document.getElementById(`${provider}-key`).value.trim();
+  if (!key) { btn.textContent = '❌ Vui lòng nhập key'; setTimeout(() => { btn.textContent = originalText; btn.disabled = false; }, 2000); return; }
+  try {
+    if (provider === 'gemini') {
+      const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${encodeURIComponent(key)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: 'Hi' }] }] }) });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    } else {
+      const resp = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' }, body: JSON.stringify({ model: 'claude-3-5-haiku-20241022', max_tokens: 20, messages: [{ role: 'user', content: 'Hi' }] }) });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    }
+    btn.textContent = '✓ Key hợp lệ!'; btn.style.background = 'var(--ok-soft)'; btn.style.color = 'var(--ok)';
+  } catch (err) { btn.textContent = '❌ Key không hợp lệ'; btn.style.background = 'var(--danger-soft)'; btn.style.color = 'var(--danger)'; }
+  setTimeout(() => { btn.textContent = originalText; btn.style.background = ''; btn.style.color = ''; btn.disabled = false; }, 3000);
+}
+
+function saveKey(provider) {
+  const key = document.getElementById(`${provider}-key`).value.trim();
+  if (!key) { alert('Vui lòng nhập API key'); return; }
+  if (provider === 'gemini') aiConfig.geminiKey = key;
+  if (provider === 'claude') aiConfig.claudeKey = key;
+  aiConfig.provider = provider;
+  saveAIConfig(); renderSettings(); renderAIBanner();
+  alert(`✓ Đã kích hoạt ${provider === 'gemini' ? 'Google Gemini' : 'Anthropic Claude'}!`);
+}
+function clearAllKeys() {
+  if (!confirm('Xoá tất cả API key đã lưu?')) return;
+  aiConfig = { provider: 'none', geminiKey: '', claudeKey: '' };
+  saveAIConfig(); renderSettings(); renderAIBanner();
 }
 
 // Sheet
 const sheet = document.getElementById('sheet');
 const backdrop = document.getElementById('sheet-bd');
 function openSheet() {
+  editingId = null; editingListKey = null;
   document.getElementById('f-date').value = today();
+  document.getElementById('f-time').value = '';
   document.getElementById('f-amount').value = '';
   document.getElementById('f-name').value = '';
-  formPriority = 'Cao';
-  formStatus = 'plan';
+  formPriority = 'Cao'; formStatus = 'plan'; formSource = 'vtec'; formDebt = 'none';
   if (currentView.startsWith('expense')) formType = 'expense';
   else if (currentView.startsWith('income')) formType = 'income';
   if (currentView.endsWith('-real')) formStatus = 'real';
-  updateFormType(); updateFormStatus();
-  document.querySelectorAll('.pri-opt').forEach(p => p.classList.toggle('active', p.dataset.pri === 'Cao'));
-  sheet.classList.add('open');
-  backdrop.classList.add('open');
+  updateFormUI();
+  document.getElementById('sheet-title').textContent = formStatus === 'plan' ? 'Thêm dự ' + (formType === 'expense' ? 'chi' : 'thu') : 'Thêm đã ' + (formType === 'expense' ? 'chi' : 'thu');
+  document.getElementById('submit-btn').textContent = 'Lưu khoản';
+  sheet.classList.add('open'); backdrop.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-function closeSheet() {
-  sheet.classList.remove('open');
-  backdrop.classList.remove('open');
-  document.body.style.overflow = '';
-}
+function closeSheet() { sheet.classList.remove('open'); backdrop.classList.remove('open'); document.body.style.overflow = ''; editingId = null; editingListKey = null; }
 document.getElementById('fab-btn').addEventListener('click', openSheet);
 document.getElementById('sheet-close').addEventListener('click', closeSheet);
 backdrop.addEventListener('click', closeSheet);
-function updateFormType() {
+
+function updateFormUI() {
   document.querySelectorAll('.type-opt').forEach(t => t.classList.toggle('active', t.dataset.type === formType));
-  updateSheetTitle();
-}
-function updateFormStatus() {
   document.querySelectorAll('.status-opt').forEach(t => t.classList.toggle('active', t.dataset.status === formStatus));
+  document.querySelectorAll('.pri-opt').forEach(p => p.classList.toggle('active', p.dataset.pri === formPriority));
+  document.querySelectorAll('.source-opt').forEach(p => p.classList.toggle('active', p.dataset.source === formSource));
+  document.querySelectorAll('.debt-opt').forEach(p => p.classList.toggle('active', p.dataset.debt === formDebt));
   document.getElementById('f-priority-wrap').style.display = (formType === 'expense' && formStatus === 'plan') ? 'block' : 'none';
   document.getElementById('f-date-label').textContent = formStatus === 'plan' ? 'Ngày dự kiến' : 'Ngày đã ' + (formType === 'expense' ? 'chi' : 'thu');
-  updateSheetTitle();
 }
-function updateSheetTitle() {
-  document.getElementById('sheet-title').textContent = (formStatus === 'plan' ? 'Thêm dự ' : 'Thêm đã ') + (formType === 'expense' ? 'chi' : 'thu');
-}
-document.querySelectorAll('.type-opt').forEach(t => t.addEventListener('click', () => { formType = t.dataset.type; updateFormType(); updateFormStatus(); }));
-document.querySelectorAll('.status-opt').forEach(t => t.addEventListener('click', () => { formStatus = t.dataset.status; updateFormStatus(); }));
-document.querySelectorAll('.pri-opt').forEach(p => p.addEventListener('click', () => {
-  formPriority = p.dataset.pri;
-  document.querySelectorAll('.pri-opt').forEach(x => x.classList.toggle('active', x.dataset.pri === formPriority));
-}));
-document.getElementById('f-amount').addEventListener('input', e => {
-  const v = parseNum(e.target.value);
-  e.target.value = v ? fmt(v) : '';
-});
+document.querySelectorAll('.type-opt').forEach(t => t.addEventListener('click', () => { formType = t.dataset.type; updateFormUI(); }));
+document.querySelectorAll('.status-opt').forEach(t => t.addEventListener('click', () => { formStatus = t.dataset.status; updateFormUI(); }));
+document.querySelectorAll('.pri-opt').forEach(p => p.addEventListener('click', () => { formPriority = p.dataset.pri; updateFormUI(); }));
+document.querySelectorAll('.source-opt').forEach(p => p.addEventListener('click', () => { formSource = p.dataset.source; updateFormUI(); }));
+document.querySelectorAll('.debt-opt').forEach(p => p.addEventListener('click', () => { formDebt = p.dataset.debt; updateFormUI(); }));
+
+document.getElementById('f-amount').addEventListener('input', e => { const v = parseNum(e.target.value); e.target.value = v ? fmt(v) : ''; });
+
 document.getElementById('submit-btn').addEventListener('click', () => {
   const date = document.getElementById('f-date').value;
+  const time = document.getElementById('f-time').value;
   const name = document.getElementById('f-name').value.trim();
   const amount = parseNum(document.getElementById('f-amount').value);
   if (!date || !name || !amount) { alert('Vui lòng nhập đủ số tiền, tên khoản và ngày'); return; }
-  const base = { id: id(), date, name, amount, vtec: false };
-  if (formStatus === 'plan') {
-    if (formType === 'expense') state.expenses.push({ ...base, priority: formPriority });
-    else state.incomes.push(base);
+
+  if (editingId && editingListKey) {
+    // Edit mode
+    const item = state[editingListKey].find(x => x.id === editingId);
+    if (item) {
+      item.date = date; item.time = time; item.name = name; item.amount = amount;
+      item.source = formSource; item.debt = formDebt;
+      if (editingListKey === 'expenses' || editingListKey === 'realExpenses') item.priority = formPriority;
+    }
   } else {
-    const realItem = { ...base, completedAt: Date.now() };
-    if (formType === 'expense') state.realExpenses.push({ ...realItem, priority: formPriority });
-    else state.realIncomes.push(realItem);
+    // Add mode
+    const base = { id: id(), date, time, name, amount, source: formSource, debt: formDebt };
+    if (formStatus === 'plan') {
+      if (formType === 'expense') state.expenses.push({ ...base, priority: formPriority });
+      else state.incomes.push(base);
+    } else {
+      const realItem = { ...base, completedAt: Date.now() };
+      if (formType === 'expense') state.realExpenses.push({ ...realItem, priority: formPriority });
+      else state.realIncomes.push(realItem);
+    }
   }
   save(); closeSheet(); render();
 });
@@ -1577,26 +1497,16 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 function setupChatInput(inputId, btnId) {
   const input = document.getElementById(inputId);
   const btn = document.getElementById(btnId);
-  const send = () => {
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    input.style.height = 'auto';
-    askAI(text);
-  };
+  const send = () => { const text = input.value.trim(); if (!text) return; input.value = ''; input.style.height = 'auto'; askAI(text); };
   btn.addEventListener('click', send);
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
-  });
-  input.addEventListener('input', () => {
-    input.style.height = 'auto';
-    input.style.height = Math.min(input.scrollHeight, 100) + 'px';
-  });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+  input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 100) + 'px'; });
 }
 setupChatInput('chat-input', 'chat-send-btn');
 setupChatInput('chat-input-2', 'chat-send-btn-2');
 
 render();
 </script>
+
 </body>
 </html>
