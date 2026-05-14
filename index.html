@@ -771,7 +771,10 @@ function openView(name) {
   currentView = name;
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  // Force scroll to top - iOS Safari fix
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   if (name === 'ai') { renderAISnapshot(); renderAIView(); }
   if (name === 'settings') renderSettings();
 }
